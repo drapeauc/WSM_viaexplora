@@ -65,7 +65,6 @@ mIcon= function(ops){
 
 mButton= function(ops){
 
-    console.log("mButton got",{ops})
 
     var { label='', raised=true, outlined, dense=true, icon, trailingIcon, disabled, href,  className='' }= ops
 
@@ -164,10 +163,10 @@ id: Id unique pour différencier
 /* GD BUG tu return un array au liieux d'un string */
 var idtxt=0
 mTexte=function(ops){
-    var {label='',maxL="140",helper,disabled,icon,trailingIcon,value,name,id=`idtxt${idtxt++}`} = ops
+    var {label='',type="texte",maxL="140",helper,disabled,icon,trailingIcon,value,name,id=`idtxt${idtxt++}`} = ops
     return`
     <div class="mdc-text-field ${disabled?'mdc-text-field--disabled':''}" data-mdc-auto-init="MDCTextField">
-        <input type="text" id=${id} class="mdc-text-field__input" ${disabled?'disabled':''} ${value?`value="${value}"`:''}>
+        <input type="${type}" id=${id} class="mdc-text-field__input" ${disabled?'disabled':''} ${value?`value="${value}"`:''}>
         <label class="mdc-floating-label ${value?'mdc-floating-label--float-above':''}for=${id}">${label}</label>
         <div class="mdc-line-ripple"></div>
     </div>
@@ -259,7 +258,7 @@ tblFinal.push(`<div class="mdc-data-table">
 				  ligneTbl.forEach(function(contenu){
 tblFinal.push(`			<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Dessert</th>`);
 				  })
-tblFinal.push(`			</tr>
+tblFinal.push(`					</tr>
 					</thead>
 				<tbody class="mdc-data-table__content">`);
 			  }
@@ -269,7 +268,7 @@ tblFinal.push(`			<tr class="mdc-data-table__row">`);
 				  ligneTbl.forEach(function(idcolone){
 tblFinal.push(`		<td class="mdc-data-table__cell">Frozen yogurt</td>`)
 				  })
-					tblFinal.push(`</tr>`)
+tblFinal.push(`						</tr>`)
 			  }
 			  idligne++
 			})

@@ -2,6 +2,10 @@
 var MCW= require('./MCW.js')
 
 body=[
+	mButton({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"Normal",value:"salut les amis"}),
+	mButton({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"outlined",value:"salut les amis",outlined:"true"}),
+	mButton({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"Disabled",value:"salut les amis",disabled:"true"}),
+	"<br>",
 	mSwitches({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"Normal",value:"salut les amis"}),
 	mSwitches({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"Checked",value:"salut les amis",checked:"true"}),
 	mSwitches({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"Disabled",value:"salut les amis",disabled:"true"}),
@@ -15,6 +19,12 @@ body=[
 	"<br>",
 	mTexte({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"value",value:"je suis la value"}),
 	mTexte({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"helper",helper:"je suis le helper"}),
+	"<br>",
+	mTexte({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"type number",type:"number"}),
+	mTexte({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"type date",type:"date"}),
+	"<br>",
+	mTexte({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"type time",type:"time"}),
+	mTexte({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"type color",type:"color"}),
 	"<br>",
 	mMultitexte({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"multi - ligne",row:"10"}),
 	mMultitexte({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"disable",disabled:"10"}),
