@@ -135,7 +135,7 @@ var idswi=0
 mSwitches=function(ops){
 
     var {label='',checked,disabled,icon,trailingIcon,value,name,id=`idswi${idswi++}`} = ops
-    return`
+    return[`
         <div class="mdc-switch ${disabled?'mdc-switch--disabled':''} ${checked?'mdc-switch--checked':''}" data-mdc-auto-init="MDCSwitch" >
             <div class="mdc-switch__track"></div>
             <div class="mdc-switch__thumb-underlay">
@@ -145,7 +145,7 @@ mSwitches=function(ops){
             </div>
         </div>
         <label for=${id}>${label}</label>
-    `
+    `]
 }
 
 
@@ -197,40 +197,32 @@ Id: un ID unique qui normalement est généré
 
 var idmultitxt=0
 mMultitexte=function(ops){
-	var {label='',rows="8",maxL="140",cols="40",helper,disabled,icon,trailingIcon,value,name,id=`idmultitxt${idmultitxt++}`} = ops
- return` 
-  <div class="mdc-text-field mdc-text-field--textarea ${disabled?'mdc-text-field--disabled':''}" data-mdc-auto-init="MDCTextField">
-  <div class="mdc-text-field-character-counter">0 / ${maxL}</div>
-  <textarea id=${id} class="mdc-text-field__input" rows="${rows}" cols="${cols}" maxlength="${maxL}" ${disabled?'disabled':''}>${value?`${value}`:''}</textarea>
-  <div class="mdc-notched-outline">
-    <div class="mdc-notched-outline__leading"></div>
-    <div class="mdc-notched-outline__notch">
-      <label for=${id} class="mdc-floating-label" >${label}</label>
-    </div>
-    <div class="mdc-notched-outline__trailing"></div>
-  </div>
-</div>
-${helper?`<div class="mdc-text-field-helper-line">
-	<div class="mdc-text-field-helper-text">${helper}</div>
-	</div> ` :''}
-`
+    var {label='',rows="8",maxL="140",cols="40",helper,disabled,icon,trailingIcon,value,name,id=`idmultitxt${idmultitxt++}`} = ops
+    return`
+        <div class="mdc-text-field mdc-text-field--textarea ${disabled?'mdc-text-field--disabled':''}" data-mdc-auto-init="MDCTextField">
+            <div class="mdc-text-field-character-counter">0 / ${maxL}</div>
+            <textarea id=${id} class="mdc-text-field__input" rows="${rows}" cols="${cols}" maxlength="${maxL}" ${disabled?'disabled':''}>${value?`${value}`:''}</textarea>
+            <div class="mdc-notched-outline">
+                <div class="mdc-notched-outline__leading"></div>
+                <div class="mdc-notched-outline__notch">
+                <label for=${id} class="mdc-floating-label" >${label}</label>
+				</div>
+            <div class="mdc-notched-outline__trailing"></div>
+            ${helper?`<div class="mdc-text-field-helper-line">
+                <div class="mdc-text-field-helper-text">${helper}</div>
+        </div> ` :''}
+    `
+
+/* GD plien de /div ?????? */
 }
 
-
-
-/*mRadio
-checked: celui qui est check est la valeur par défaut
-
-*/
-
 var idradio=0
-var nameradio=0
 mRadio=function(ops){
-	var {label='',disabled,checked, icon,trailingIcon,value,name=`nameradio${nameradio++}`,id=`idradio${idradio++}`} = ops
+	var {label='',disabled,icon,trailingIcon,value,name,id=`idradio${idradio++}`} = ops
 	return` 
-	<div class="mdc-form-field" data-mdc-auto-init="MDCFormField">
-	  <div class="mdc-radio ${disabled?'mdc-radio--disabled':''}" data-mdc-auto-init="MDCRadio">
-		<input class="mdc-radio__native-control" type="radio" id="${id}" name="${name}" ${checked?"checked":""} ${disabled?'disabled':''} ${value?`'${value}'`:""}>
+	<div class="mdc-form-field">
+	  <div class="mdc-radio">
+		<input class="mdc-radio__native-control" type="radio" id=${id} name="radios" checked>
 		<div class="mdc-radio__background">
 		  <div class="mdc-radio__outer-circle"></div>
 		  <div class="mdc-radio__inner-circle"></div>
@@ -238,47 +230,29 @@ mRadio=function(ops){
 	  </div>
 	  <label for=${id}>${label}</label>
 	</div>
-`}
+}
+`
 
 
-/* TABLEAU
+
+/*Multi texte
+
 */
 
-idligne=0
-tblFinal=[]
-mTable=function(ops){
-	var {label='',disabled,checked, icon,trailingIcon,value,name,infoTbl, id=`idradio${idradio++}`} = ops
-	
-tblFinal.push(`<div class="mdc-data-table">
-				  <table class="mdc-data-table__table" aria-label="Dessert calories">
-					<thead>
-					  <tr class="mdc-data-table__header-row">`);
-					  
-			infoTbl.forEach(function(ligneTbl) {
-			  if (idligne===0){					  
-				  ligneTbl.forEach(function(contenu){
-tblFinal.push(`			<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Dessert</th>`);
-				  })
-tblFinal.push(`			</tr>
-					</thead>
-				<tbody class="mdc-data-table__content">`);
-			  }
-			  
-			  else{  
-tblFinal.push(`			<tr class="mdc-data-table__row">`);
-				  ligneTbl.forEach(function(idcolone){
-tblFinal.push(`		<td class="mdc-data-table__cell">Frozen yogurt</td>`)
-				  })
-					tblFinal.push(`</tr>`)
-			  }
-			  idligne++
-			})
-tblFinal.push(`			</tbody>
-				  </table>
-				</div>`);
-				return tblFinal.join('\n')
-			
-	
-}
-
-module.exports = { mButton, mIcon, mCheckbox, mSwitches,mStart, mTexte, mMultitexte, mRadio, tblFinal}
+var idradio=0
+var nameradio=0
+mRadio=function(ops){
+	var {label='',disabled,icon,trailingIcon,value,name=`nameradio${nameradio++}`,id=`idradio${idradio++}`} = ops
+	return[` 
+	<div class="mdc-form-field" data-mdc-auto-init="MDCFormField">
+	  <div class="mdc-radio" data-mdc-auto-init="MDCRadio">
+		<input class="mdc-radio__native-control" type="radio" id="${id}" name="${name}" checked>
+		<div class="mdc-radio__background">
+		  <div class="mdc-radio__outer-circle"></div>
+		  <div class="mdc-radio__inner-circle"></div>
+		</div>
+	  </div>
+	  <label for=${id}>${label}</label>
+	</div>
+`]}
+module.exports = { mButton, mIcon, mCheckbox, mSwitches,mStart, mTexte, mMultitexte, mRadio}

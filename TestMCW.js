@@ -22,6 +22,11 @@ body=[
 	"<br>",
 	mMultitexte({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"value",value:"je suis la value"}),
 	mMultitexte({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"Helper",helper:"je suis le helper"}),
+	"<br>",
+	mRadio({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"Normal",name:"radio1"}),
+	mRadio({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"checked",name:"radio1",checked:"yes"}),
+	mRadio({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"disabled",name:"radio1", disabled:"yes"}),
+	mTable({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"disabled",name:"radio1", disabled:"yes",infoTbl:[["a","a2","a3"],["b","b2","b3"],["c","c2","c3"]]}),
 	''].join('')
  
 
