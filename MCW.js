@@ -14,7 +14,7 @@
 var log= console.log.bind(console)
 var isArray= Array.isArray
 
-/*mStart
+/*mStart genere le code HTML avec 2 arguments 
 title = titre HTML
 body = contenu page HTML
 */
@@ -80,7 +80,7 @@ mButton= function(ops){
 
 
 
-/* MCW Checkbox
+/* MCW Checkbox une checkbox ordinaire ou:
     label: Texte afficher
     checked: Cocher de base ou none
     inderterminate: Inteterminate de base (a travailler)
@@ -98,7 +98,7 @@ var idchk=0
 mCheckbox=function(ops){
 
     var {label='', checked, inderterminate, disabled, icon, trailingIcon, value, name, id=`idchk${idchk++}`} = ops
-    return[`
+    return`
     <div class="mdc-form-field">
         <div class="mdc-checkbox">
             <input type="checkbox" ${value?`value=${value}`:''}${name?`name=${name}`:''}
@@ -119,17 +119,23 @@ mCheckbox=function(ops){
           </div>
         ${label?`<label for=${id}>${label}</label>`:''}
     </div>
-    `]
+    `
 
 }
 
 
 
-/* mSwitches
-   GD TODO:.....
+/* mSwitches une switch ''on/off'' avec argument:
+label: titre
+checked: on 
+disable: impossible de l'utiliser
+icon: icon avant
+trailingIcon: icon arriere
+value: la valeur
+name: le nom donné
+id: id donné si pas id donné il se génère (Id doit être unique)
 */
 
-/* GD BUG tu return un array au liieux d'un string */
 var idswi=0
 mSwitches=function(ops){
 
@@ -217,8 +223,16 @@ ${helper?`<div class="mdc-text-field-helper-line">
 
 
 
-/*mRadio
+/*mRadio est un ''Radio'' qui permet un nombre de choix X 1 seul peut être check
 checked: celui qui est check est la valeur par défaut
+label: le nom attaché au choix
+disabled: empêche cette selection
+checked: celui qui commence checked
+icon: icon avant
+trailingIcon: icon arriere
+value: la valeur a on / offscreenBuffering
+name: le nom de la radio, si il y a plusieurs même name ca devien des choix !! 
+id: si aucun id donné, il est généré (chaque ID doit être unique)
 
 */
 
@@ -240,38 +254,49 @@ mRadio=function(ops){
 `}
 
 
-/* TABLEAU
+/* mTABLEAU simple generateur de tableau ou:
+label="aria-label" qui n'est pas apparent
+icon: icon avant
+trailingIcon: icon apres
+value: valeur tableau
+name: nom tableau ?
+infoTbl: Contenu general tableau
+HeaderTbl: Contenu en tête tableau
 */
 
-idligne=0
-tblFinal=[]
+var idligne=0
 mTable=function(ops){
-	var {label='',disabled,checked, icon,trailingIcon,value,name,infoTbl, id=`idradio${idradio++}`} = ops
-	
-tblFinal.push(`<div class="mdc-data-table">
-				  <table class="mdc-data-table__table" aria-label="Dessert calories">
-					<thead>
-					  <tr class="mdc-data-table__header-row">`);
-					  
-			infoTbl.forEach(function(ligneTbl) {
-			  if (idligne===0){					  
-				  ligneTbl.forEach(function(contenu){
-tblFinal.push(`			<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Dessert</th>`);
+	var tblFinal=[]
+	var {label='', icon,trailingIcon,value,name,headerTbl,infoTbl, id=`idradio${idradio++}`} = ops
+tblFinal.push(`		<div class="mdc-data-table">
+			<table class="mdc-data-table__table" aria-label="${label}">`);
+				
+			  if (headerTbl){
+tblFinal.push(`				<thead>
+					<tr class="mdc-data-table__header-row">	`)			  
+				  headerTbl.forEach(function(contenu){
+tblFinal.push(`			<th class="mdc-data-table__header-cell" role="columnheader" scope="col">${contenu}</th>`);
 				  })
 tblFinal.push(`					</tr>
-					</thead>
-				<tbody class="mdc-data-table__content">`);
-			  }
+				</thead>`);				  
+				  }
+				  
+				  
+
+tblFinal.push(`				<tbody class="mdc-data-table__content">`);
 			  
-			  else{  
-tblFinal.push(`			<tr class="mdc-data-table__row">`);
-				  ligneTbl.forEach(function(idcolone){
-tblFinal.push(`		<td class="mdc-data-table__cell">Frozen yogurt</td>`)
+
+
+				
+			infoTbl.forEach(function(ligneTbl) { 
+tblFinal.push(`					<tr class="mdc-data-table__row">`);
+				  ligneTbl.forEach(function(contenu){
+tblFinal.push(`						<td class="mdc-data-table__cell">${contenu}</td>`)
 				  })
-tblFinal.push(`						</tr>`)
-			  }
+tblFinal.push(`					</tr>`)
+			  
 			  idligne++
-			})
+				})
 tblFinal.push(`			</tbody>
 				  </table>
 				</div>`);
@@ -280,4 +305,4 @@ tblFinal.push(`			</tbody>
 	
 }
 
-module.exports = { mButton, mIcon, mCheckbox, mSwitches,mStart, mTexte, mMultitexte, mRadio, tblFinal}
+module.exports = { mButton, mIcon, mCheckbox, mSwitches,mStart, mTexte, mMultitexte, mRadio, mTable}
