@@ -72,7 +72,7 @@ mButton= function(ops){
     return [
         `<button class="mdc-button ${raised?'mdc-button--raised ':''}${outlined?'mdc-button--outlined ':''}" ${disabled?'disabled':''} >`,
 			icon?mIcon({className:'mdc-button__icon', icon}):'',
-
+			label?`${label}`:'',
 			trailingIcon?mIcon({className:'mdc-button__icon', icon:trailingIcon}):'',
         '</button>'
         ].filter(x=>x).join('\n')
@@ -169,10 +169,10 @@ id: Id unique pour différencier
 /* GD BUG tu return un array au liieux d'un string */
 var idtxt=0
 mTexte=function(ops){
-    var {label='',type="texte",maxL="140",helper,disabled,icon,trailingIcon,value,name,id=`idtxt${idtxt++}`} = ops
+    var {label='',type="texte",maxL="140",helper,disabled,icon,trailingIcon,value,name='',id=`idtxt${idtxt++}`} = ops
     return`
     <div class="mdc-text-field ${disabled?'mdc-text-field--disabled':''}" data-mdc-auto-init="MDCTextField">
-        <input type="${type}" id=${id} class="mdc-text-field__input" ${disabled?'disabled':''} ${value?`value="${value}"`:''}>
+        <input type="${type}" name=${name} id=${id} class="mdc-text-field__input" ${disabled?'disabled':''} ${value?`value="${value}"`:''}>
         <label class="mdc-floating-label ${value?'mdc-floating-label--float-above':''}for=${id}">${label}</label>
         <div class="mdc-line-ripple"></div>
     </div>
@@ -305,4 +305,67 @@ tblFinal.push(`			</tbody>
 	
 }
 
-module.exports = { mButton, mIcon, mCheckbox, mSwitches,mStart, mTexte, mMultitexte, mRadio, mTable}
+
+mSelect=function(ops){
+	var {label='', icon,trailingIcon,value,name,headerTbl,infoTbl, id=`idradio${idradio++}`} = ops
+	var Select=[]
+	console.log(value)
+Select.push(`	<div class="mdc-select" data-mdc-auto-init="MDCSelect">
+	  <i class="mdc-select__dropdown-icon"></i>
+	  <select class="mdc-select__native-control">
+		<option value="" disabled selected></option>`)
+		value.forEach(function(options){Select.push(`<option value=options>
+		  ${options}
+		</option>`)})
+Select.push(`		</select>
+	  <label class="mdc-floating-label">Pick a Food Group</label>
+	  <div class="mdc-line-ripple"></div>
+</div>`)
+
+return Select.join('\n')
+}
+
+mSelectMenu=function(ops){
+	var {label='',name,outlined,disabled,} = ops
+	var Select=[]
+Select.push(`	<div class="mdc-select demo-width-class ${outlined?'mdc-select--outlined':''} ${disabled?'mdc-select--disabled':''}"data-mdc-auto-init="MDCSelect">
+	  <input type="hidden" name="enhanced-select" ${disabled?'disabled':''}>
+	  <i class="mdc-select__dropdown-icon"></i>
+	  <div class="mdc-select__selected-text"></div>
+	  <div class="mdc-select__menu mdc-menu mdc-menu-surface demo-width-class">
+		<ul class="mdc-list">
+		  <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true"></li>`)
+name.forEach(function(name,i){Select.push(`		  <li class="mdc-list-item" data-value={i}>
+			${name}
+		  </li>`)
+			})
+Select.push(`		</ul>
+	  </div>
+	  <span class="mdc-floating-label">${label}</span>
+	  <div class="mdc-line-ripple"></div>
+	</div>`)
+	return Select.join('\n')
+}
+
+mTopAppBar=function(ops){
+	var {label='',labelEnd='',outlined,disabled} = ops
+	var TopApp=[]
+TopApp.push(`	<header class="mdc-top-app-bar">
+	  <div class="mdc-top-app-bar__row data-mdc-auto-init="MDCTopAppBar">
+		<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">`
+		  contenu.forEach(function(element){
+			  if (element.position='start'){
+				  if (element.type='logo'){
+					  `<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">${element.label}</a>`
+				  }
+				  else if(element.type='texte'){
+					  `<span class="mdc-top-app-bar__title">${element.label}</span>`
+				  }
+			  }
+		  })
+		</section>
+	  </div>
+	</header>`)
+return TopApp.join('\n')
+}
+module.exports = { mButton, mIcon, mCheckbox, mSwitches,mStart, mTexte, mMultitexte, mRadio, mTable, mSelectMenu, mTopAppBar}

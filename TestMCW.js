@@ -35,8 +35,13 @@ body=[
 	"<br>",
 	mRadio({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"Normal",name:"radio1"}),
 	mRadio({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"checked",name:"radio1",checked:"yes"}),
-	mRadio({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"disabled",name:"radio1", disabled:"yes"}),*/
-	mTable({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"disabled",name:"radio1", disabled:"yes",infoTbl:[["a","a2","a3"],["b","b2","b3"],["c","c2","c3"]],headerTbl:["h","h1","h2"]}),
+	mRadio({primary:0,outline:1,icon:'stop',trailingIcon:'start',label:"disabled",name:"radio1", disabled:"yes"}
+	"<br>"),
+	mSelectMenu({label:"disabled", disabled:"yes",name:["valeur1","valeur2","valeur3"],disabled:true}),
+	mSelectMenu({label:"outlined",name:["valeur1","valeur2","valeur3"],outlined:true}),
+	mSelectMenu({label:"normal", name:["valeur1","valeur2","valeur3"]}),
+	"<br>"*/
+	mTopAppBar({contenu:[{type:'logo', label:'menu',position:'start'},{type:'texte', label:'myMCW',position:'end'},{type:'texte', label:'START',position:'strat'}]}),
 	''].join('')
  
 
