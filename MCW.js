@@ -307,9 +307,8 @@ tblFinal.push(`			</tbody>
 
 
 mSelect=function(ops){
-	var {label='', icon,trailingIcon,value,name,headerTbl,infoTbl, id=`idradio${idradio++}`} = ops
+	var {label='',value,name,headerTbl,infoTbl} = ops
 	var Select=[]
-	console.log(value)
 Select.push(`	<div class="mdc-select" data-mdc-auto-init="MDCSelect">
 	  <i class="mdc-select__dropdown-icon"></i>
 	  <select class="mdc-select__native-control">
@@ -318,7 +317,7 @@ Select.push(`	<div class="mdc-select" data-mdc-auto-init="MDCSelect">
 		  ${options}
 		</option>`)})
 Select.push(`		</select>
-	  <label class="mdc-floating-label">Pick a Food Group</label>
+	  <label class="mdc-floating-label">${label}</label>
 	  <div class="mdc-line-ripple"></div>
 </div>`)
 
@@ -348,22 +347,36 @@ Select.push(`		</ul>
 }
 
 mTopAppBar=function(ops){
-	var {label='',labelEnd='',outlined,disabled} = ops
+	var {label='',labelEnd='',outlined,disabled,contenu=[]} = ops
 	var TopApp=[]
 TopApp.push(`	<header class="mdc-top-app-bar">
 	  <div class="mdc-top-app-bar__row data-mdc-auto-init="MDCTopAppBar">
-		<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">`
+		<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">`)
 		  contenu.forEach(function(element){
-			  if (element.position='start'){
-				  if (element.type='logo'){
-					  `<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">${element.label}</a>`
+			  if (element.position==='start'){
+				  if (element.type==='logo'){
+TopApp.push(					  `<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">${element.label}</a>`)
 				  }
-				  else if(element.type='texte'){
-					  `<span class="mdc-top-app-bar__title">${element.label}</span>`
+				  else if(element.type==='texte'){
+TopApp.push(					  `<span class="mdc-top-app-bar__title">${element.label}</span>`)
 				  }
 			  }
 		  })
-		</section>
+TopApp.push(		`</section>
+		<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">`)
+		  contenu.forEach(function(element){
+			  if(element.type==='end'){
+				  if (element.type==='logo'){
+TopApp.push(					  `<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">${element.label}</a>`)
+				  }
+				  else if (element.type==='texte'){
+TopApp.push(					  `<span class="mdc-top-app-bar__title">${element.label}</span>`)					  
+				  }
+			  }
+TopApp.push(`		<a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Download">${element.label}</a>`)
+		  })
+
+TopApp.push(		`</section>	  
 	  </div>
 	</header>`)
 return TopApp.join('\n')
