@@ -307,13 +307,13 @@ tblFinal.push(`			</tbody>
 
 
 mSelect=function(ops){
-	var {label='',value,name,headerTbl,infoTbl} = ops
+	var {label='',value='',name='', options='',headerTbl,infoTbl} = ops
 	var Select=[]
 Select.push(`	<div class="mdc-select" data-mdc-auto-init="MDCSelect">
 	  <i class="mdc-select__dropdown-icon"></i>
-	  <select class="mdc-select__native-control">
-		<option value="" disabled selected></option>`)
-		value.forEach(function(options){Select.push(`<option value=options>
+	  <select class="mdc-select__native-control" name=${name}>
+		<option disabled selected data-value=${value}>${value}</option>`)
+		options.forEach(function(options){Select.push(`<option data-value=${options}>
 		  ${options}
 		</option>`)})
 Select.push(`		</select>
@@ -325,7 +325,7 @@ return Select.join('\n')
 }
 
 mSelectMenu=function(ops){
-	var {label='',name,outlined,disabled,} = ops
+	var {label='',name,outlined,disabled} = ops
 	var Select=[]
 Select.push(`	<div class="mdc-select demo-width-class ${outlined?'mdc-select--outlined':''} ${disabled?'mdc-select--disabled':''}"data-mdc-auto-init="MDCSelect">
 	  <input type="hidden" name="enhanced-select" ${disabled?'disabled':''}>

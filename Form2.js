@@ -27,13 +27,14 @@ mTableauVisuel=function(ops){
 	
 		while (i<nbUser){
 			i++
-		user.push([mTexte({name:`user-${i}`,value:Membre[i]?Membre[i].acro:''}),mTexte({name:`titre-${i}`,value:Membre[i]?Membre[i].titre:''}),mSelect({label:"Type",name:Membre[i]?Membre[i].type:'',value:["Demo","Clé en main"]})])
+		user.push([mTexte({name:`user-${i}`,value:Membre[i]?Membre[i].acro:''}),mTexte({name:`titre-${i}`,value:Membre[i]?Membre[i].titre:''}),mSelect({label:"type",name:`type-${i}`,options:["Demo","Clé en main"],value:Membre[i]?Membre[i].type:''})])
 			
 		}
 		
 		
 		body=['<form method="POST" action="/adminreponse">',
 				mTable({name:"Form 2 panel",infoTbl:user,headerTbl:["user","titre","type"]}),
+				'<br>',
 			  '<button type="submit">Metre à jour</button>',
 			  '</form>',
 		'',].join('')
@@ -41,10 +42,6 @@ mTableauVisuel=function(ops){
         resp.send(mStart({title:title, body:body},))
 }
 
-
-
-function pageHTML(contenu) {
-}
 
 function initserveur() {
 	
@@ -91,16 +88,19 @@ function initserveur() {
 					titre[ligne]=req.body[valeur]
 				break;
 				case "type":
-					type[ligne]= !!req.body[valeur]
-					console.log(type[ligne])
+					type[ligne]=req.body[valeur]
+				//	console.log(type[ligne])
 				break;
 			}
-			
+		//	console.log("type = "+type)
+		//	console.log("acro = "+acro)
 		})
-		console.log(`acro= ${acro}`,acro)
+	//	console.log(`acro= ${acro}`,acro)
 		
 		acro.forEach(function(user,i){
 			if(user){
+		//		console.log("GELO"+type[i])
+		//		console.log(user)
 				Membre.push({
 					acro:user,
 					titre:titre[i],
