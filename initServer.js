@@ -7,7 +7,10 @@ const express = require('express')
 var http = require('http');
 
 var MCW= require('./MCW.js')
+var VX_widget=require('./VX_widget.js')
+
 var {mTexte, mCheckbox} = MCW
+var {mTableauViForm2, mTableauVisuel} = VX_widget
 var fs = require("fs");
 
 var Login
@@ -18,27 +21,12 @@ catch(err){
 	Login=[]
 }
 
-
-mTableauVisuel=function(ops){
-		var {name='',nbUser=Login.length+2, resp} = ops
-		i=-1
-		user=[]
-		
-	
-		while (i<nbUser){
-			i++
-		user.push([mTexte({name:`user-${i}`,value:Login[i]?Login[i].username:''}),mTexte({name:`password-${i}`,value:Login[i]?Login[i].password:''}),mCheckbox({name:`ROOT-${i}`,checked:Login[i]?(Login[i].root?true:''):''})])
-			
-		}
-		
-		
-		body=['<form method="POST" action="/adminreponse">',
-				mTable({name:"AdminPanel",infoTbl:user,headerTbl:["user","Password","ROOT"]}),
-			  '<button type="submit">Metre à jour</button>',
-			  '</form>',
-		'',].join('')
-		title=name
-        resp.send(mStart({title:title, body:body},))
+var Membre
+try{
+	Membre=require('./Membre.json')
+}
+catch(err){
+	Membre=[]
 }
 
 
@@ -112,8 +100,105 @@ function initserveur() {
 			  if (err) console.log(err);
 			  console.log("Successfully Written to File.");
 			});
-			mTableauVisuel({name:"Admin panel",nbUser:Login.length+1, resp:resp})
+			mTableauVisuel({name:"Admin panel",nbUser:Login.length+1, resp:resp,Login:Login})
 	})	
+	
+	
+		app.get('/form2', function(req, resp) {
+			
+		console.log("body=",req.body)
+		var resultat = Object.getOwnPropertyNames(req.body)
+			var type=[]
+			var acro=[]
+			var titre=[]
+			Membre=[]
+			
+		resultat.forEach(function(valeur){
+			var x = valeur.split('-')
+			var col = x[0], ligne = x[1]
+			switch (col){
+				case "user":
+					acro[ligne]=req.body[valeur]
+				break;
+				case "titre":
+					titre[ligne]=req.body[valeur]
+				break;
+				case "type":
+					type[ligne]=req.body[valeur]
+				//	console.log(type[ligne])
+				break;
+			}
+		//	console.log("type = "+type)
+		//	console.log("acro = "+acro)
+		})
+	//	console.log(`acro= ${acro}`,acro)
+		
+		acro.forEach(function(user,i){
+			if(user){
+		//		console.log("GELO"+type[i])
+		//		console.log(user)
+				Membre.push({
+					acro:user,
+					titre:titre[i],
+					type:type[i]
+					})
+			}
+			})
+			fs.writeFile("Membre.json", JSON.stringify(Membre), (err) => {
+			  if (err) console.log(err);
+			  console.log("Successfully Written to File.");
+			});
+			mTableauViForm2({name:"Panel 2",nbUser:Membre.length+1, resp:resp, Membre:Membre})
+	})	
+	
+	
+	app.post('/form2reponse', function(req, resp) {
+			
+		console.log("body=",req.body)
+		var resultat = Object.getOwnPropertyNames(req.body)
+			var type=[]
+			var acro=[]
+			var titre=[]
+			Membre=[]
+			
+		resultat.forEach(function(valeur){
+			var x = valeur.split('-')
+			var col = x[0], ligne = x[1]
+			switch (col){
+				case "user":
+					acro[ligne]=req.body[valeur]
+				break;
+				case "titre":
+					titre[ligne]=req.body[valeur]
+				break;
+				case "type":
+					type[ligne]=req.body[valeur]
+				//	console.log(type[ligne])
+				break;
+			}
+		//	console.log("type = "+type)
+		//	console.log("acro = "+acro)
+		})
+	//	console.log(`acro= ${acro}`,acro)
+		
+		acro.forEach(function(user,i){
+			if(user){
+		//		console.log("GELO"+type[i])
+		//		console.log(user)
+				Membre.push({
+					acro:user,
+					titre:titre[i],
+					type:type[i]
+					})
+			}
+			})
+			fs.writeFile("Membre.json", JSON.stringify(Membre), (err) => {
+			  if (err) console.log(err);
+			  console.log("Successfully Written to File.");
+			});
+			mTableauViForm2({name:"Panel 2",nbUser:Membre.length+1, resp:resp})
+	})	
+	
 	
 	app.listen(port, () => console.log("server listen")
 	)
