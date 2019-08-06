@@ -381,4 +381,4 @@ TopApp.push(		`</section>
 	</header>`)
 return TopApp.join('\n')
 }
-module.exports = { mButton, mIcon, mCheckbox, mSwitches,mStart, mTexte, mMultitexte, mRadio, mTable, mSelectMenu, mTopAppBar}
+module.exports = { mButton, mIcon, mCheckbox, mSwitches,mStart, mTexte, mMultitexte, mRadio, mTable, mSelectMenu, mTopAppBar, mSelect}

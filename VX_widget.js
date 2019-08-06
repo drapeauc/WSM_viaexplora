@@ -1,3 +1,6 @@
+var MCW= require('./MCW.js')
+var {mTexte, mCheckbox, mSelect,mMultitexte} = MCW
+
 mTableauVisuel=function(ops){
 		var {name='',nbUser=Login.length+2, resp, Login} = ops
 		i=-1
@@ -42,4 +45,27 @@ mTableauViForm2=function(ops){
 		title=name
         resp.send(mStart({title:title, body:body},))
 }
-module.exports = {mTableauViForm2, mTableauVisuel}
+
+
+mTableauViForm3=function(ops){
+		var {name='',nbUser=FileServe.length+2, resp, FileServe} = ops
+		i=0
+		user=[]
+		
+	
+		user.push([mTexte({name:`titre-${i}`,value:FileServe[i]?FileServe[i].titre:''}),mMultitexte({name:`DNS-${i}`,value:FileServe[i]?FileServe[i].DNS:''}),mTexte({name:`path-${i}`,value:FileServe[i]?FileServe[i].path:''}),mCheckbox({name:`index-${i}`,checked:FileServe[i]?(FileServe[i].index?true:''):''}),mCheckbox({name:`notfound-${i}`,checked:FileServe[i]?(FileServe[i].notfound?true:''):''})])
+
+		
+		
+		body=['<form method="POST" action="/form2reponse">',
+				mTable({name:"Form 2 panel",infoTbl:user,headerTbl:["Titre","DNS","Path","index","notFound"]}),
+				'<br>',
+			  '<button type="submit">Metre à jour</button>',
+			  '</form>',
+		'',].join('')
+		title=name
+        resp.send(mStart({title:title, body:body},))
+}
+
+
+module.exports = {mTableauViForm2, mTableauVisuel, mTableauViForm3}

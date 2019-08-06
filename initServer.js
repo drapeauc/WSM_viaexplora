@@ -10,7 +10,7 @@ var MCW= require('./MCW.js')
 var VX_widget=require('./VX_widget.js')
 
 var {mTexte, mCheckbox} = MCW
-var {mTableauViForm2, mTableauVisuel} = VX_widget
+var {mTableauViForm2, mTableauVisuel, mTableauViForm3} = VX_widget
 var fs = require("fs");
 
 var Login
@@ -29,7 +29,13 @@ catch(err){
 	Membre=[]
 }
 
-
+var FileServe
+try{
+	FileServe=require('./FileServe.json')
+}
+catch(err){
+	FileServe=[]
+}
 
 function pageHTML(contenu) {
 }
@@ -52,7 +58,7 @@ function initserveur() {
 	/* req deffinition*/
 	
     app.get('/adminpanel', function(req, resp) {
-		mTableauVisuel({name:"Admin panel",nbUser:Login.length+1, resp:resp})
+		mTableauVisuel({name:"Admin panel",nbUser:Login.length+1, resp:resp, Login:Login})
 		fs.writeFile("login.json", JSON.stringify(Login), (err) => {
 			if (err) console.log(err);
 			console.log("Successfully Written to File.");
@@ -199,6 +205,13 @@ function initserveur() {
 			mTableauViForm2({name:"Panel 2",nbUser:Membre.length+1, resp:resp})
 	})	
 	
+	    app.get('/form3', function(req, resp) {
+		mTableauViForm3({name:"Form 3",nbUser:Login.length+1, resp:resp, FileServe:FileServe})
+		fs.writeFile("FileServe.json", JSON.stringify(Login), (err) => {
+			if (err) console.log(err);
+			console.log("Successfully Written to File.");
+		});
+    })
 	
 	app.listen(port, () => console.log("server listen")
 	)
