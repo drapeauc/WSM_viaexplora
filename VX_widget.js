@@ -2,7 +2,7 @@ var MCW= require('./MCW.js')
 var {mTexte, mCheckbox, mSelect,mMultitexte} = MCW
 
 mTableauVisuel=function(ops){
-		var {name='',nbUser=Login.length+2, resp, Login} = ops
+		var {name='',Login, nbUser=Login.length+2, resp} = ops
 		i=-1
 		user=[]
 		
@@ -24,7 +24,8 @@ mTableauVisuel=function(ops){
 }
 
 mTableauViForm2=function(ops){
-		var {name='',nbUser=Membre.length+2, resp, Membre} = ops
+		var {name='',Membre, nbUser=Membre.length+2, resp} = ops
+		console.log("membre = ",Membre)
 		i=-1
 		user=[]
 		
@@ -48,17 +49,19 @@ mTableauViForm2=function(ops){
 
 
 mTableauViForm3=function(ops){
-		var {name='',nbUser=FileServe.length+2, resp, FileServe} = ops
+		var {name='', resp, FileServe, abv} = ops
 		i=0
 		user=[]
 		
 	
-		user.push([mTexte({name:`titre-${i}`,value:FileServe[i]?FileServe[i].titre:''}),mMultitexte({name:`DNS-${i}`,value:FileServe[i]?FileServe[i].DNS:''}),mTexte({name:`path-${i}`,value:FileServe[i]?FileServe[i].path:''}),mCheckbox({name:`index-${i}`,checked:FileServe[i]?(FileServe[i].index?true:''):''}),mCheckbox({name:`notfound-${i}`,checked:FileServe[i]?(FileServe[i].notfound?true:''):''})])
+		user.push([mTexte({name:`titre`,value:FileServe.titre?FileServe.titre:''}),mMultitexte({name:`DNS`,value:FileServe.DNS?FileServe.DNS:''}),mTexte({name:`path`,value:FileServe.path?FileServe.path:''}),mCheckbox({name:`index`,checked:FileServe.index?true:''}),mCheckbox({name:`notfound`,checked:FileServe.notFound?true:''})])
 
 		
 		
-		body=['<form method="POST" action="/form2reponse">',
-				mTable({name:"Form 2 panel",infoTbl:user,headerTbl:["Titre","DNS","Path","index","notFound"]}),
+		body=[	`<h1>For ${abv}</h1>`,
+				'<br>',
+				`<form method="POST" action="/form3reponse/${abv}">`,
+				mTable({name:"Form 3 panel",infoTbl:user,headerTbl:["Titre","DNS","Path","index","notFound"]}),
 				'<br>',
 			  '<button type="submit">Metre à jour</button>',
 			  '</form>',

@@ -26,15 +26,8 @@ try{
 	Membre=require('./Membre.json')
 }
 catch(err){
+	console.log("il y a une erreur avec Membre")
 	Membre=[]
-}
-
-var FileServe
-try{
-	FileServe=require('./FileServe.json')
-}
-catch(err){
-	FileServe=[]
 }
 
 function pageHTML(contenu) {
@@ -150,6 +143,7 @@ function initserveur() {
 					})
 			}
 			})
+			console.log("saving membre",Membre)
 			fs.writeFile("Membre.json", JSON.stringify(Membre), (err) => {
 			  if (err) console.log(err);
 			  console.log("Successfully Written to File.");
@@ -170,6 +164,7 @@ function initserveur() {
 		resultat.forEach(function(valeur){
 			var x = valeur.split('-')
 			var col = x[0], ligne = x[1]
+			//console.log("valeur= ",valeur)
 			switch (col){
 				case "user":
 					acro[ligne]=req.body[valeur]
@@ -182,10 +177,10 @@ function initserveur() {
 				//	console.log(type[ligne])
 				break;
 			}
-		//	console.log("type = "+type)
-		//	console.log("acro = "+acro)
+	//	console.log("type = "+type)
+	//	console.log("acro = "+acro)
 		})
-	//	console.log(`acro= ${acro}`,acro)
+		console.log(`acro= ${acro}`,acro)
 		
 		acro.forEach(function(user,i){
 			if(user){
@@ -198,20 +193,46 @@ function initserveur() {
 					})
 			}
 			})
+			
 			fs.writeFile("Membre.json", JSON.stringify(Membre), (err) => {
 			  if (err) console.log(err);
 			  console.log("Successfully Written to File.");
 			});
-			mTableauViForm2({name:"Panel 2",nbUser:Membre.length+1, resp:resp})
+			mTableauViForm2({name:"Panel 2",nbUser:Membre.length+1, resp:resp, Membre:Membre})
 	})	
-	
-	    app.get('/form3', function(req, resp) {
-		mTableauViForm3({name:"Form 3",nbUser:Login.length+1, resp:resp, FileServe:FileServe})
-		fs.writeFile("FileServe.json", JSON.stringify(Login), (err) => {
+		
+	    app.get('/form3/:abv', function(req, resp) {
+		abv = req.params.abv
+		var FileServe
+		try{
+			FileServe=require(`./FileServe${abv}.json`)
+		}
+		catch(err){
+			FileServe=[]
+		}
+		mTableauViForm3({name:`Form 3 ${abv}`, resp:resp, FileServe:FileServe, abv})
+		fs.writeFile(`FileServe${abv}.json`, JSON.stringify(Login), (err) => {
 			if (err) console.log(err);
 			console.log("Successfully Written to File.");
 		});
     })
+	
+		app.post('/form3reponse/:abv', function(req, resp) {
+			abv = req.params.abv
+			FileServe={
+					titre: req.body.titre,
+					dns: req.body.DNS,
+					path: req.body.path,
+					index: req.body.index,
+					notFound: req.body.notfound
+					}
+			console.log(FileServe)
+			fs.writeFile(`FileServe${abv}.json`, JSON.stringify(FileServe), (err) => {
+				if (err) console.log(err);
+				console.log("Successfully Written to File.");
+		});
+		mTableauViForm3({name:"Form 3", resp:resp, FileServe:FileServe, abv})
+		})
 	
 	app.listen(port, () => console.log("server listen")
 	)
