@@ -221,7 +221,7 @@ function initserveur() {
 			abv = req.params.abv
 			FileServe={
 					titre: req.body.titre,
-					dns: req.body.DNS,
+					dns: req.body.dns,
 					path: req.body.path,
 					index: req.body.index,
 					notFound: req.body.notfound

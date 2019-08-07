@@ -202,11 +202,11 @@ Id: un ID unique qui normalement est généré
 
 var idmultitxt=0
 mMultitexte=function(ops){
-	var {label='',rows="8",maxL="140",cols="40",helper,disabled,icon,trailingIcon,value,name,id=`idmultitxt${idmultitxt++}`} = ops
+	var {label='',rows="8",maxL="140",cols="40",name='',helper,disabled,icon,trailingIcon,value,name,id=`idmultitxt${idmultitxt++}`} = ops
  return` 
   <div class="mdc-text-field mdc-text-field--textarea ${disabled?'mdc-text-field--disabled':''}" data-mdc-auto-init="MDCTextField">
   <div class="mdc-text-field-character-counter">0 / ${maxL}</div>
-  <textarea id=${id} class="mdc-text-field__input" rows="${rows}" cols="${cols}" maxlength="${maxL}" ${disabled?'disabled':''}>${value?`${value}`:''}</textarea>
+  <textarea name=${name} id=${id} class="mdc-text-field__input" rows="${rows}" cols="${cols}" maxlength="${maxL}" ${disabled?'disabled':''}>${value?`${value}`:''}</textarea>
   <div class="mdc-notched-outline">
     <div class="mdc-notched-outline__leading"></div>
     <div class="mdc-notched-outline__notch">

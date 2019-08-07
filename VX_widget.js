@@ -54,7 +54,7 @@ mTableauViForm3=function(ops){
 		user=[]
 		
 	
-		user.push([mTexte({name:`titre`,value:FileServe.titre?FileServe.titre:''}),mMultitexte({name:`DNS`,value:FileServe.DNS?FileServe.DNS:''}),mTexte({name:`path`,value:FileServe.path?FileServe.path:''}),mCheckbox({name:`index`,checked:FileServe.index?true:''}),mCheckbox({name:`notfound`,checked:FileServe.notFound?true:''})])
+		user.push([mTexte({name:`titre`,value:FileServe.titre?FileServe.titre:''}),mMultitexte({name:`dns`,value:FileServe.dns?FileServe.dns:''}),mTexte({name:`path`,value:FileServe.path?FileServe.path:''}),mCheckbox({name:`index`,checked:FileServe.index?true:''}),mCheckbox({name:`notfound`,checked:FileServe.notFound?true:''})])
 
 		
 		
