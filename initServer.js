@@ -3,6 +3,7 @@ fs = require('fs');
 log = console.log.bind(console);
 
 
+
 const express = require('express')
 var http = require('http');
 
@@ -13,6 +14,13 @@ var {mTexte, mCheckbox} = MCW
 var {mTableauViForm2, mTableauVisuel, mTableauViForm3} = VX_widget
 var fs = require("fs");
 
+var FileServe
+try{
+	FileServe=require(`./FileServe.json`)
+	}
+catch(err){
+	FileServe={}
+}
 var Login
 try{
 	Login=require('./login.json')
@@ -203,23 +211,19 @@ function initserveur() {
 		
 	    app.get('/form3/:abv', function(req, resp) {
 		abv = req.params.abv
-		var FileServe
-		try{
-			FileServe=require(`./FileServe${abv}.json`)
-		}
-		catch(err){
-			FileServe=[]
-		}
-		mTableauViForm3({name:`Form 3 ${abv}`, resp:resp, FileServe:FileServe, abv})
-		fs.writeFile(`FileServe${abv}.json`, JSON.stringify(Login), (err) => {
-			if (err) console.log(err);
-			console.log("Successfully Written to File.");
-		});
+		
+		
+	
+		
+		console.log(FileServe)
+		
+		mTableauViForm3({name:`Form 3 ${abv}`, resp:resp, FileServe:FileServe, abv:abv})
+
     })
 	
 		app.post('/form3reponse/:abv', function(req, resp) {
 			abv = req.params.abv
-			FileServe={
+			FileServe[abv]={
 					titre: req.body.titre,
 					dns: req.body.dns,
 					path: req.body.path,
@@ -227,9 +231,9 @@ function initserveur() {
 					notFound: req.body.notfound
 					}
 			console.log(FileServe)
-			fs.writeFile(`FileServe${abv}.json`, JSON.stringify(FileServe), (err) => {
+			fs.writeFile(`FileServe.json`, JSON.stringify(FileServe), (err) => {
 				if (err) console.log(err);
-				console.log("Successfully Written to File.");
+				else console.log(FileServe);
 		});
 		mTableauViForm3({name:"Form 3", resp:resp, FileServe:FileServe, abv})
 		})
