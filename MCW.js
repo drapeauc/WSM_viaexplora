@@ -66,15 +66,15 @@ mIcon= function(ops){
 mButton= function(ops){
 
 
-    var { label='', raised=true, outlined, dense=true, icon, trailingIcon, disabled, href,  className='' }= ops
+    var { liens="#", label='', raised=true, outlined, dense=true, icon, trailingIcon, disabled, href,  className='' }= ops
 
 
     return [
-        `<button class="mdc-button ${raised?'mdc-button--raised ':''}${outlined?'mdc-button--outlined ':''}" ${disabled?'disabled':''} >`,
+        `<a class="mdc-button ${raised?'mdc-button--raised ':''}${outlined?'mdc-button--outlined ':''}" ${disabled?'disabled':''} href=${liens}>`,
 			icon?mIcon({className:'mdc-button__icon', icon}):'',
 			label?`${label}`:'',
 			trailingIcon?mIcon({className:'mdc-button__icon', icon:trailingIcon}):'',
-        '</button>'
+		'</a>'
         ].filter(x=>x).join('\n')
 }
 
