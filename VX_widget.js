@@ -37,7 +37,7 @@ mTableauViForm2=function(ops){
 		}
 		
 		
-		body=['<form method="POST" action="/form2reponse">',
+		body=['<form method="POST" action="/form2">',
 				mTable({name:"Form 2 panel",infoTbl:user,headerTbl:["user","titre","type"]}),
 				'<br>',
 			  '<button type="submit">Metre à jour</button>',
@@ -61,7 +61,7 @@ mTableauViForm3=function(ops){
 		
 		body=[	`<h1>For ${abv}</h1>`,
 				'<br>',
-				`<form method="POST" action="/form3reponse/${abv}">`,
+				`<form method="POST" action="/form3/${abv}">`,
 				mTable({name:"Form 3 panel",infoTbl:user,headerTbl:["Titre","DNS","Path","index","notFound"]}),
 				'<br>',
 			  '<button type="submit">Metre à jour</button>',

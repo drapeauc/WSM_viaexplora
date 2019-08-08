@@ -10,20 +10,33 @@ var http = require('http');
 var MCW= require('./MCW.js')
 var VX_widget=require('./VX_widget.js')
 
+var serveIndex = require('serve-index')
+var serveStatic = require('serve-static')
+
 var {mTexte, mCheckbox} = MCW
 var {mTableauViForm2, mTableauVisuel, mTableauViForm3} = VX_widget
 var fs = require("fs");
 
+
+
+// Serve directory indexes for public/ftp folder (with icons)
+var index = serveIndex('public/ftp', {'icons': true})
+
+// Serve up public/ftp folder files
+var serve = serveStatic('public/ftp')
+
+
 var FileServe
 try{
-	FileServe=require(`./FileServe.json`)
+	FileServe=require('data/FileServe.json')
 	}
 catch(err){
+	console.log("il y a une erreur avec FileServe")
 	FileServe={}
 }
 var Login
 try{
-	Login=require('./login.json')
+	Login=require('data/login.json')
 }
 catch(err){
 	Login=[]
@@ -31,7 +44,7 @@ catch(err){
 
 var Membre
 try{
-	Membre=require('./Membre.json')
+	Membre=require('data/Membre.json')
 }
 catch(err){
 	console.log("il y a une erreur avec Membre")
@@ -49,7 +62,7 @@ function initserveur() {
     app.use(express.static(publicDir));
     const port = 3000
 	app.use(express.urlencoded())
-	
+	app.use(express.static('./'))
 /*   Redirect
     app.get('/', function(req, res, next) {
         req.url = '/vers ou la redirect ce fait'
@@ -66,7 +79,7 @@ function initserveur() {
 		});
     })
 	
-	app.post('/adminreponse', function(req, resp) {
+	app.post('/adminpanel', function(req, resp) {
 			
 		console.log("body=",req.body)
 		var resultat = Object.getOwnPropertyNames(req.body)
@@ -160,7 +173,7 @@ function initserveur() {
 	})	
 	
 	
-	app.post('/form2reponse', function(req, resp) {
+	app.post('/form2', function(req, resp) {
 			
 		console.log("body=",req.body)
 		var resultat = Object.getOwnPropertyNames(req.body)
@@ -221,7 +234,7 @@ function initserveur() {
 
     })
 	
-		app.post('/form3reponse/:abv', function(req, resp) {
+		app.post('/form3/:abv', function(req, resp) {
 			abv = req.params.abv
 			FileServe[abv]={
 					titre: req.body.titre,
@@ -230,8 +243,7 @@ function initserveur() {
 					index: req.body.index,
 					notFound: req.body.notfound
 					}
-			console.log(FileServe)
-			fs.writeFile(`FileServe.json`, JSON.stringify(FileServe), (err) => {
+			fs.writeFile(`data/FileServe.json`, JSON.stringify(FileServe), (err) => {
 				if (err) console.log(err);
 				else console.log(FileServe);
 		});
