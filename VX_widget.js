@@ -1,6 +1,7 @@
 var MCW= require('./MCW.js')
 var {mTexte, mCheckbox, mSelect,mMultitexte} = MCW
 
+//adminPanel
 mTableauVisuel=function(ops){
 		var {name='',Login, nbUser=Login.length+2, resp} = ops
 		i=-1
@@ -14,8 +15,13 @@ mTableauVisuel=function(ops){
 		}
 		
 		
-		body=['<form method="POST" action="/adminreponse">',
+		body=[	mTopAppBar({contenu:[{type:'texte', label:`Admin panel`, position:'start'}]}),
+				'<br>',
+				'<br>',
+				'<br>',
+				'<form method="POST" action="/adminreponse">',
 				mTable({name:"AdminPanel",infoTbl:user,headerTbl:["user","Password","ROOT"]}),
+				'<br>',
 			  '<button type="submit">Metre à jour</button>',
 			  '</form>',
 		'',].join('')
@@ -23,6 +29,7 @@ mTableauVisuel=function(ops){
         resp.send(mStart({title:title, body:body},))
 }
 
+//Membres
 mTableauViForm2=function(ops){
 		var {name='',Membre, nbUser=Membre.length+2, resp} = ops
 		console.log("membre = ",Membre)
@@ -37,7 +44,11 @@ mTableauViForm2=function(ops){
 		}
 		
 		
-		body=['<form method="POST" action="/form2">',
+		body=[	mTopAppBar({contenu:[{type:'texte', label:`Membre`, position:'start'}]}),
+				'<br>',
+				'<br>',
+				'<br>',
+				'<form method="POST" action="/membres">',
 				mTable({name:"Form 2 panel",infoTbl:user,headerTbl:["user","titre","type"]}),
 				'<br>',
 			  '<button type="submit">Metre à jour</button>',
@@ -47,7 +58,7 @@ mTableauViForm2=function(ops){
         resp.send(mStart({title:title, body:body},))
 }
 
-
+//infoMembre
 mTableauViForm3=function(ops){
 		var {name='', resp, FileServe, abv} = ops
 		i=0
@@ -59,9 +70,11 @@ mTableauViForm3=function(ops){
 
 		
 		
-		body=[	`<h1>For ${abv}</h1>`,
+body=[			mTopAppBar({contenu:[{type:'texte', label:`Info membre ${abv}`, position:'start'}]}),
 				'<br>',
-				`<form method="POST" action="/form3/${abv}">`,
+				'<br>',
+				'<br>',
+				`<form method="POST" action="/infoMembre/${abv}">`,
 				mTable({name:"Form 3 panel",infoTbl:user,headerTbl:["Titre","DNS","Path","index","notFound"]}),
 				'<br>',
 			  '<button type="submit">Metre à jour</button>',

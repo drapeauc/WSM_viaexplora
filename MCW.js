@@ -272,32 +272,32 @@ tblFinal.push(`		<div class="mdc-data-table">
 			<table class="mdc-data-table__table" aria-label="${label}">`);
 				
 			  if (headerTbl){
-tblFinal.push(`				<thead>
+					tblFinal.push(`				<thead>
 					<tr class="mdc-data-table__header-row">	`)			  
 				  headerTbl.forEach(function(contenu){
-tblFinal.push(`			<th class="mdc-data-table__header-cell" role="columnheader" scope="col">${contenu}</th>`);
+				tblFinal.push(`			<th class="mdc-data-table__header-cell" role="columnheader" scope="col">${contenu}</th>`);
 				  })
-tblFinal.push(`					</tr>
+				tblFinal.push(`					</tr>
 				</thead>`);				  
 				  }
 				  
 				  
 
-tblFinal.push(`				<tbody class="mdc-data-table__content">`);
+	tblFinal.push(`				<tbody class="mdc-data-table__content">`);
 			  
 
 
 				
-			infoTbl.forEach(function(ligneTbl) { 
-tblFinal.push(`					<tr class="mdc-data-table__row">`);
+	infoTbl.forEach(function(ligneTbl) { 
+		tblFinal.push(`					<tr class="mdc-data-table__row">`);
 				  ligneTbl.forEach(function(contenu){
-tblFinal.push(`						<td class="mdc-data-table__cell">${contenu}</td>`)
+		tblFinal.push(`						<td class="mdc-data-table__cell">${contenu}</td>`)
 				  })
-tblFinal.push(`					</tr>`)
+		tblFinal.push(`					</tr>`)
 			  
-			  idligne++
-				})
-tblFinal.push(`			</tbody>
+		idligne++
+		})
+	tblFinal.push(`			</tbody>
 				  </table>
 				</div>`);
 				return tblFinal.join('\n')
@@ -309,17 +309,17 @@ tblFinal.push(`			</tbody>
 mSelect=function(ops){
 	var {label='',value='',name='', options='',headerTbl,infoTbl} = ops
 	var Select=[]
-Select.push(`	<div class="mdc-select" data-mdc-auto-init="MDCSelect">
+	Select.push(`	<div class="mdc-select" data-mdc-auto-init="MDCSelect">
 	  <i class="mdc-select__dropdown-icon"></i>
 	  <select class="mdc-select__native-control" name=${name}>
 		<option disabled selected data-value=${value}>${value}</option>`)
 		options.forEach(function(options){Select.push(`<option data-value=${options}>
 		  ${options}
 		</option>`)})
-Select.push(`		</select>
+	Select.push(`		</select>
 	  <label class="mdc-floating-label">${label}</label>
 	  <div class="mdc-line-ripple"></div>
-</div>`)
+	</div>`)
 
 return Select.join('\n')
 }
@@ -327,18 +327,18 @@ return Select.join('\n')
 mSelectMenu=function(ops){
 	var {label='',name,outlined,disabled} = ops
 	var Select=[]
-Select.push(`	<div class="mdc-select demo-width-class ${outlined?'mdc-select--outlined':''} ${disabled?'mdc-select--disabled':''}"data-mdc-auto-init="MDCSelect">
+	Select.push(`	<div class="mdc-select demo-width-class ${outlined?'mdc-select--outlined':''} ${disabled?'mdc-select--disabled':''}"data-mdc-auto-init="MDCSelect">
 	  <input type="hidden" name="enhanced-select" ${disabled?'disabled':''}>
 	  <i class="mdc-select__dropdown-icon"></i>
 	  <div class="mdc-select__selected-text"></div>
 	  <div class="mdc-select__menu mdc-menu mdc-menu-surface demo-width-class">
 		<ul class="mdc-list">
 		  <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true"></li>`)
-name.forEach(function(name,i){Select.push(`		  <li class="mdc-list-item" data-value={i}>
+	name.forEach(function(name,i){Select.push(`		  <li class="mdc-list-item" data-value={i}>
 			${name}
 		  </li>`)
 			})
-Select.push(`		</ul>
+	Select.push(`		</ul>
 	  </div>
 	  <span class="mdc-floating-label">${label}</span>
 	  <div class="mdc-line-ripple"></div>
@@ -349,36 +349,38 @@ Select.push(`		</ul>
 mTopAppBar=function(ops){
 	var {label='',labelEnd='',outlined,disabled,contenu=[]} = ops
 	var TopApp=[]
-TopApp.push(`	<header class="mdc-top-app-bar">
+	TopApp.push(`	<header class="mdc-top-app-bar">
 	  <div class="mdc-top-app-bar__row data-mdc-auto-init="MDCTopAppBar">
 		<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">`)
 		  contenu.forEach(function(element){
+			  console.log("element = ",element)
+			  console.log("element pos= ",element.position)
 			  if (element.position==='start'){
 				  if (element.type==='logo'){
-TopApp.push(					  `<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">${element.label}</a>`)
+					TopApp.push(					  `<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">${element.label}</a>`)
 				  }
 				  else if(element.type==='texte'){
-TopApp.push(					  `<span class="mdc-top-app-bar__title">${element.label}</span>`)
+					TopApp.push(					  `<span class="mdc-top-app-bar__title">${element.label}</span>`)
 				  }
 			  }
 		  })
-TopApp.push(		`</section>
+		TopApp.push(		`</section>
 		<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">`)
-		  contenu.forEach(function(element){
-			  if(element.type==='end'){
+		contenu.forEach(function(element){
+			  if(element.position==='end'){
 				  if (element.type==='logo'){
-TopApp.push(					  `<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">${element.label}</a>`)
+						TopApp.push(					  `<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">${element.label}</a>`)
 				  }
 				  else if (element.type==='texte'){
-TopApp.push(					  `<span class="mdc-top-app-bar__title">${element.label}</span>`)					  
+						TopApp.push(					  `<span class="mdc-top-app-bar__title">${element.label}</span>`)					  
 				  }
-			  }
-TopApp.push(`		<a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Download">${element.label}</a>`)
-		  })
+/*      PROBLEME ICON+ACTION
+		TopApp.push(`		<a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Download">${element.label}</a>`)
+			  */		 } })
 
-TopApp.push(		`</section>	  
+		TopApp.push(		`</section>	  
 	  </div>
 	</header>`)
-return TopApp.join('\n')
+	return TopApp.join('\n')
 }
 module.exports = { mButton, mIcon, mCheckbox, mSwitches,mStart, mTexte, mMultitexte, mRadio, mTable, mSelectMenu, mTopAppBar, mSelect}
