@@ -19,7 +19,7 @@ mTableauVisuel=function(ops){
 				'<br>',
 				'<br>',
 				'<br>',
-				'<form method="POST" action="/adminreponse">',
+				'<form method="POST" action="/adminpanel">',
 				mTable({name:"AdminPanel",infoTbl:user,headerTbl:["user","Password","ROOT"]}),
 				'<br>',
 			  '<button type="submit">Metre à jour</button>',
