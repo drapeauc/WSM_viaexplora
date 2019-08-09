@@ -13,7 +13,7 @@ var MCW= require('./MCW.js')
 var {mTexte, mCheckbox} = MCW
 
 var VX_widget=require('./VX_widget.js')
-var {mTableauViForm2, mTableauVisuel, mTableauViForm3} = VX_widget
+var {mTableauViForm2, mTableauVisuel, mTableauViForm3, index} = VX_widget
 
 var	VX_server=require('./VX_server.js')
 var {adminpost,membrespost} = VX_server
@@ -82,7 +82,11 @@ function initserveur() {
 			
 		membrespost({req:req,resp:resp,resultat:Object.getOwnPropertyNames(req.body)})
 	})	
-		
+	
+	app.get('/', function (req,resp){
+		index({resp:resp})
+	})
+	
 	    app.get('/infoMembre/:abv', function(req, resp) {
 		abv = req.params.abv
 		

@@ -84,5 +84,19 @@ body=[			mTopAppBar({contenu:[{type:'texte', label:`Info membre ${abv}`, positio
         resp.send(mStart({title:title, body:body},))
 }
 
-
-module.exports = {mTableauViForm2, mTableauVisuel, mTableauViForm3}
+index=function(ops){
+	var {resp, res} = ops
+	body=[	mTopAppBar({contenu:[{type:'texte', label:`Index`, position:'start'}]}),
+				'<br>',
+				'<br>',
+				'<br>',
+				'<br>',
+				mButton({liens: `/adminpanel`,primary:0,outline:1,label:"Admin Panel",outlined:"true"}),
+				'<br>',
+				'<br>',
+				mButton({liens: `/membres`,primary:0,outline:1,label:"Liste membre",outlined:"true"}),
+				'',].join('')
+title="index"
+resp.send(mStart({title:title, body:body},))
+}
+module.exports = {mTableauViForm2, mTableauVisuel, mTableauViForm3, index}
