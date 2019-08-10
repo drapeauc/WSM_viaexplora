@@ -112,10 +112,13 @@ mFormulaire=function(ops){
 			Formulaire[fspec]=[]
 			console.log(Formulaire)
 		}
-		console.log(Formulaire)
+		
+		console.log("nbFormulaire =",nbFormulaire)
+		console.log("form=",Formulaire[fspec][0])
+
 		while (i<nbFormulaire){
 			i++
-		user.push([mTexte({name:`name-${i}`,value:Formulaire.fspec[i]?Formulaire.fspec[i].name:''}),mTexte({name:`type-${i}`,value:Formulaire.fspec[i]?Formulaire.fspec[i].type:''}),mTexte({name:`value-${i}`,value:Formulaire.fspec[i]?Formulaire.fspec[i].value:''}),mTexte({name:`options-${i}`,value:Formulaire.fspec[i]?Formulaire.fspec[i].options:''})])
+		user.push([mTexte({name:`name-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec].name:''}),mTexte({name:`type-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec][i].type:''}),mTexte({name:`value-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec][i].value:''}),mTexte({name:`options-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec][i].options:''})])
 			
 		}
 		 

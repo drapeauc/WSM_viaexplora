@@ -16,7 +16,7 @@ var VX_widget=require('./VX_widget.js')
 var {mTableauViForm2, mTableauVisuel, mTableauViForm3, index} = VX_widget
 
 var	VX_server=require('./VX_server.js')
-var {adminpost,membrespost} = VX_server
+var {adminpost,membrespost,formulairepost} = VX_server
 
 var FileServe
 try{
@@ -81,8 +81,8 @@ function initserveur() {
 	})
 	
 	app.post('/formulaire/:fspec', function(req, resp) {
-			
-		membrespost({name:"Création Formulaire",nbUser:2+1, resp:resp, Formulaire:Formulaire, fspec:req.params.fspec})
+		console.log(req.params.fspec)
+		formulairepost({name:"Création Formulaire",nbUser:2+1, resp:resp, Formulaire:Formulaire, fspec:req.params.fspec, resultat:Object.getOwnPropertyNames(req.body)})
 	})	
 	
 

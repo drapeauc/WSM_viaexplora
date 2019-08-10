@@ -7,7 +7,7 @@ var type=[]
 		var value=[]
 		var options=[]
 		
-		Formulaire=[]
+		Formulaire[fspec]=[]
 		//name type valueoptions
         
 		resultat.forEach(function(valeur){
@@ -38,7 +38,7 @@ var type=[]
 			if(user){
 		//		console.log("GELO"+type[i])
 		//		console.log(user)
-				Membre.push({
+				Formulaire[fspec].push({
 					name:nom,
 					type:titre[i],
 					value:type[i],
@@ -48,7 +48,7 @@ var type=[]
 			}
 			})
 			
-			fs.writeFile("data/Membre.json", JSON.stringify(Membre), (err) => {
+			fs.writeFile("data/Formulaire.json", JSON.stringify(Formulaire), (err) => {
 			  if (err) console.log(err);
 			  console.log("Successfully Written to File.");
 			});

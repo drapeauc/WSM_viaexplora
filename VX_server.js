@@ -46,8 +46,7 @@ adminpost=function(ops){
 	}
 
 membrespost=function(ops){
-
-var {resultat, req, resp} = ops
+	var {resultat, req, resp} = ops
 var type=[]
 		var acro=[]
 		var titre=[]		
@@ -111,22 +110,62 @@ infopost=function(ops){
 	
 }
 
-infopost=function(ops){
-	var {abv, req, resp, FileServe} = ops
-	
-	Formulaire[abv]={	
-		name: req.body.titre,
-		type: req.body.dns,
-		value: req.body.path,
-		options: req.body.index,
-		notFound: req.body.notfound
-					}
-		fs.writeFile(`data/FileServe.json`, JSON.stringify(FileServe), (err) => {
-				if (err) console.log(err);
-				else console.log(FileServe);
-		});
-		mTableauViForm3({name:"Form 3", resp:resp, FileServe:FileServe, abv})
-	
+formulairepost=function(ops){
+
+var {resultat, req, resp,Formulaire,fspec} = ops
+var type=[]
+		var name=[]
+		var type=[]	
+		var value=[]
+		var options=[]
+		
+		Formulaire[fspec]=[]
+		//name type valueoptions
+        
+		resultat.forEach(function(valeur){
+			var x = valeur.split('-')
+			var col = x[0], ligne = x[1]
+			//console.log("valeur= ",valeur)
+			switch (col){
+				case "name":
+					name[ligne]=req.body[valeur]
+				break;
+				case "type":
+					type[ligne]=req.body[valeur]
+				break;
+				case "value":
+					value[ligne]=req.body[valeur]
+				//	console.log(type[ligne])
+				case "options":
+					options[ligne]=req.body[valeur]
+				//	console.log(type[ligne])
+				break;
+			}
+	//	console.log("type = "+type)
+	//	console.log("acro = "+acro)
+		})
+		console.log(`acro= ${acro}`,acro)
+		
+		name.forEach(function(nom,i){
+			if(user){
+		//		console.log("GELO"+type[i])
+		//		console.log(user)
+				Formulaire[fspec].push({
+					name:nom,
+					type:titre[i],
+					value:type[i],
+					options:options[i]
+					
+					})
+			}
+			})
+			
+			fs.writeFile("data/Formulaire.json", JSON.stringify(Formulaire), (err) => {
+			  if (err) console.log(err);
+			  console.log("Successfully Written to File.");
+			});
+			mFormulaire({name:"Création Formulaire",nbFormulaire:2+1, resp:resp, Formulaire:Formulaire, fspec:req.params.fspec})
 }
 
-module.exports = {adminpost,membrespost}
+
+module.exports = {adminpost,membrespost,formulairepost}
