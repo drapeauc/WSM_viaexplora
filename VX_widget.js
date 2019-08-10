@@ -67,7 +67,7 @@ mTableauViForm3=function(ops){
 		var membre= FileServe[abv]?FileServe[abv]:{}
 		
 		user.push([mTexte({name:`titre`,value:membre.titre?membre.titre:''}),mMultitexte({name:`dns`,value:membre.dns?membre.dns:''}),mTexte({name:`path`,value:membre.path?membre.path:''}),mCheckbox({name:`index`,checked:membre.index?true:''}),mCheckbox({name:`notfound`,checked:membre.notFound?true:''})])
-
+		
 		
 		
 body=[			mTopAppBar({contenu:[{type:'texte', label:`Info membre ${abv}`, position:'start'}]}),
@@ -99,4 +99,39 @@ index=function(ops){
 title="index"
 resp.send(mStart({title:title, body:body},))
 }
-module.exports = {mTableauViForm2, mTableauVisuel, mTableauViForm3, index}
+
+
+mFormulaire=function(ops){
+		var {name='',Formulaire, nbFormulaire=2, resp,fspec} = ops
+		console.log("Formulaire = ",Formulaire)
+		console.log(fspec)
+		i=-1
+		user=[]
+		console.log(Formulaire)
+		if (Formulaire && !Formulaire[fspec]){
+			Formulaire[fspec]=[]
+			console.log(Formulaire)
+		}
+		console.log(Formulaire)
+		while (i<nbFormulaire){
+			i++
+		user.push([mTexte({name:`name-${i}`,value:Formulaire.fspec[i]?Formulaire.fspec[i].name:''}),mTexte({name:`type-${i}`,value:Formulaire.fspec[i]?Formulaire.fspec[i].type:''}),mTexte({name:`value-${i}`,value:Formulaire.fspec[i]?Formulaire.fspec[i].value:''}),mTexte({name:`options-${i}`,value:Formulaire.fspec[i]?Formulaire.fspec[i].options:''})])
+			
+		}
+		 
+		
+		body=[	mTopAppBar({contenu:[{type:'texte', label:`Formulaire`, position:'start'}]}),
+				'<br>',
+				'<br>',
+				'<br>',
+				`<form method="POST" action="/formulaire/${fspec}">`,
+				mTable({name:"Form 2 panel",infoTbl:user,headerTbl:["name","type","value","options"]}),
+				'<br>',
+			  '<button type="submit">Metre à jour</button>',
+			  '</form>',
+		'',].join('')
+		title=name
+        resp.send(mStart({title:title, body:body},))
+}
+
+module.exports = {mTableauViForm2, mTableauVisuel, mTableauViForm3, index, mFormulaire}

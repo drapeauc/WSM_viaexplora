@@ -46,7 +46,8 @@ adminpost=function(ops){
 	}
 
 membrespost=function(ops){
-	var {resultat, req, resp} = ops
+
+var {resultat, req, resp} = ops
 var type=[]
 		var acro=[]
 		var titre=[]		
@@ -109,4 +110,23 @@ infopost=function(ops){
 		mTableauViForm3({name:"Form 3", resp:resp, FileServe:FileServe, abv})
 	
 }
+
+infopost=function(ops){
+	var {abv, req, resp, FileServe} = ops
+	
+	Formulaire[abv]={	
+		name: req.body.titre,
+		type: req.body.dns,
+		value: req.body.path,
+		options: req.body.index,
+		notFound: req.body.notfound
+					}
+		fs.writeFile(`data/FileServe.json`, JSON.stringify(FileServe), (err) => {
+				if (err) console.log(err);
+				else console.log(FileServe);
+		});
+		mTableauViForm3({name:"Form 3", resp:resp, FileServe:FileServe, abv})
+	
+}
+
 module.exports = {adminpost,membrespost}
