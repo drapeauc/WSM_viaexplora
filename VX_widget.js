@@ -138,8 +138,7 @@ mFormulaire=function(ops){
 }
 
 mCreatForm=function(ops){
-		var {resp, Formulaire,nomFormulaire} = ops
-		var FileForm={}
+		var {resp, Formulaire,nomFormulaire,FileForm} = ops
 		console.log("le nom formulaire :",nomFormulaire)
 		FileForm[nomFormulaire]
 		try{
@@ -178,7 +177,7 @@ mCreatForm=function(ops){
 				'<br>',
 				'<br>',
 				'<br>',
-				'<form method="POST" action="/membres">',
+				`<form method="POST" action="/${nomFormulaire}">`,
 				mTable({name:"Form 2 panel",infoTbl:Form,headerTbl:name}),
 				'<br>',
 			  '<button type="submit">Metre à jour</button>',
@@ -193,14 +192,19 @@ formulairecreation=function (ops) {
 	var {app, Formulaire} = ops
 	keys= Object.keys(Formulaire)
 	console.log("les keys sont:",keys)
+	var FileForm={}
 	
 	keys.forEach(function(valeur){
 		
 		app.get(`/${valeur}`, function(req, resp) {
-			mCreatForm({Formulaire:Formulaire[valeur],nomFormulaire:valeur, resp:resp})
+			mCreatForm({Formulaire:Formulaire[valeur],nomFormulaire:valeur, resp:resp, FileForm})
 		})
 		
-		
+		app.post(`/${valeur}`, function(req, resp) {
+		console.log("AAAAAAAAAAAAAAAAAAA:",Formulaire[valeur].name)
+		creationformulaire({FileForm, Formulaire:Formulaire[valeur],resultat:Object.getOwnPropertyNames(req.body),nomFormulaire:valeur, req:req, resp:resp,keys:Formulaire[valeur].name})
+
+	})	
 	})
 	/*app.get('/bob', function(req, resp) {
 		

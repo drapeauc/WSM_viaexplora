@@ -167,5 +167,49 @@ var type=[]
 }
 
 
-
+creationformulaire=function(ops){
+	var {resultat, req, resp, keys, nomFormulaire,Formulaire,FileForm} = ops
+		info={}
+		returnFinal=[]
+		name=[]
+		
+		Formulaire.forEach(function(valeur){
+			name.push(valeur.name)
+		})
+		
+		
+		name.forEach(function(etat){
+			info[etat]=[]
+			console.log("KEYYYYY =",etat)
+		})
+		
+		resultat.forEach(function(valeur){
+			var x = valeur.split('-')
+			var col = x[0], ligne = x[1]
+			console.log("COL =",col)
+			name.forEach(function(etat){
+			if (col===etat){
+				info[etat][ligne]=req.body[valeur]
+			}
+			})	
+		})
+		console.log("INFOOOOOOOOOOOOOOOO",info)
+		generique= Object.keys(info)
+		
+		info[generique[0]].forEach(function(user,i){
+			objet={}
+			generique.forEach(function(value){
+				objet[value]=info[value][i]
+			})
+			returnFinal.push(objet)
+		})
+		
+			
+			fs.writeFile(`data/${nomFormulaire}.json`, JSON.stringify(returnFinal), (err) => {
+			  if (err) console.log(err);
+			  console.log("Successfully Written to File.");
+			});
+			mCreatForm({Formulaire:Formulaire,nomFormulaire:nomFormulaire, resp:resp, FileForm:FileForm})
+	}
+	
 module.exports = {adminpost,membrespost,formulairepost}
