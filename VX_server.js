@@ -144,16 +144,15 @@ var type=[]
 	//	console.log("type = "+type)
 	//	console.log("acro = "+acro)
 		})
-		console.log(`acro= ${acro}`,acro)
 		
 		name.forEach(function(nom,i){
-			if(user){
+			if(nom){
 		//		console.log("GELO"+type[i])
 		//		console.log(user)
 				Formulaire[fspec].push({
 					name:nom,
-					type:titre[i],
-					value:type[i],
+					type:type[i],
+					value:value[i],
 					options:options[i]
 					
 					})
@@ -164,8 +163,9 @@ var type=[]
 			  if (err) console.log(err);
 			  console.log("Successfully Written to File.");
 			});
-			mFormulaire({name:"Création Formulaire",nbFormulaire:2+1, resp:resp, Formulaire:Formulaire, fspec:req.params.fspec})
+			mFormulaire({name:"Création Formulaire",nbFormulaire:Formulaire[req.params.fspec].length+2, resp:resp, Formulaire:Formulaire, fspec:req.params.fspec})
 }
+
 
 
 module.exports = {adminpost,membrespost,formulairepost}

@@ -1,56 +1,24 @@
-formulairepost=function(ops){
 
-var {resultat, req, resp} = ops
-var type=[]
-		var name=[]
-		var type=[]	
-		var value=[]
-		var options=[]
 		
-		Formulaire[fspec]=[]
-		//name type valueoptions
-        
-		resultat.forEach(function(valeur){
-			var x = valeur.split('-')
-			var col = x[0], ligne = x[1]
-			//console.log("valeur= ",valeur)
-			switch (col){
-				case "name":
-					name[ligne]=req.body[valeur]
-				break;
-				case "type":
-					type[ligne]=req.body[valeur]
-				break;
-				case "value":
-					value[ligne]=req.body[valeur]
-				//	console.log(type[ligne])
-				case "options":
-					options[ligne]=req.body[valeur]
-				//	console.log(type[ligne])
-				break;
-			}
-	//	console.log("type = "+type)
-	//	console.log("acro = "+acro)
-		})
-		console.log(`acro= ${acro}`,acro)
 		
-		name.forEach(function(nom,i){
-			if(user){
-		//		console.log("GELO"+type[i])
-		//		console.log(user)
-				Formulaire[fspec].push({
-					name:nom,
-					type:titre[i],
-					value:type[i],
-					options:options[i]
-					
-					})
-			}
-			})
+	
+		while (i<nbUser){
+			i++
+		//	quoi?({	
+		user.push([mTexte({name:`user-${i}`,value:Membre[i]?Membre[i].acro:''}),mTexte({name:`titre-${i}`,value:Membre[i]?Membre[i].titre:''}),mSelect({label:"type",name:`type-${i}`,options:["Demo","Clé en main"],value:Membre[i]?Membre[i].type:''}),mButton({liens: `/infoMembre/${Membre[i]?Membre[i].acro:''}`,primary:0,outline:1,label:Membre[i]?Membre[i].titre:'',value:"salut les amis",outlined:"true",disabled:!Membre[i]})])
 			
-			fs.writeFile("data/Formulaire.json", JSON.stringify(Formulaire), (err) => {
-			  if (err) console.log(err);
-			  console.log("Successfully Written to File.");
-			});
-			mTableauViForm2({name:"Panel 2",nbUser:Membre.length+1, resp:resp, Membre:Membre})
-}
+		}
+		
+		
+		body=[	mTopAppBar({contenu:[{type:'texte', label:`Membre`, position:'start'}]}),
+				'<br>',
+				'<br>',
+				'<br>',
+				'<form method="POST" action="/membres">',
+				mTable({name:"Form 2 panel",infoTbl:user,headerTbl:["user","titre","type","infoMembre"]}),
+				'<br>',
+			  '<button type="submit">Metre à jour</button>',
+			  '</form>',
+		'',].join('')
+		title=name
+        resp.send(mStart({title:title, body:body},))

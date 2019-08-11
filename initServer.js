@@ -43,12 +43,21 @@ catch(err){
 	Membre=[]
 }
 
+var Formulaire
+try{
+	Formulaire=require('./data/Formulaire.json')
+}
+catch(err){
+	console.log("il y a une erreur avec Formulaire")
+	Formulaire={}
+}
+
 function pageHTML(contenu) {
 }
 
 function initserveur() {
 	
-
+	
     const app = express()
     var publicDir = require('path').join(__dirname, '/public');
     const port = 3000
@@ -98,6 +107,20 @@ function initserveur() {
 		mTableauViForm3({name:`Form 3 ${abv}`, resp:resp, FileServe:FileServe, abv:abv})
 
     })
+	
+	
+		app.get('/formulaire/:fspec', function(req, resp) {
+		
+		mFormulaire({name:"Création Formulaire",nbFormulaire:Formulaire[req.params.fspec]?Formulaire[req.params.fspec].length+2:3, resp:resp,req:req, Formulaire:Formulaire, fspec:req.params.fspec})
+	
+	})
+	
+	app.post('/formulaire/:fspec', function(req, resp) {
+		console.log(req.params.fspec)
+		formulairepost({name:"Création Formulaire",nbFormulaire:Formulaire[req.params.fspec]?Formulaire[req.params.fspec].length+2:3, resp:resp,req:req, Formulaire:Formulaire, fspec:req.params.fspec, resultat:Object.getOwnPropertyNames(req.body)})
+	})	
+	
+	formulairecreation({app:app,Formulaire:Formulaire})
 	
 		app.post('/infoMembre/:abv', function(req, resp) {
 		infopost({req:req,resp:resp, abv:req.params.abv,FileServe:FileServe})

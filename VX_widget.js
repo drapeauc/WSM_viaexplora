@@ -118,7 +118,7 @@ mFormulaire=function(ops){
 
 		while (i<nbFormulaire){
 			i++
-		user.push([mTexte({name:`name-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec].name:''}),mTexte({name:`type-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec][i].type:''}),mTexte({name:`value-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec][i].value:''}),mTexte({name:`options-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec][i].options:''})])
+		user.push([mTexte({name:`name-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec][i].name:''}),mTexte({name:`type-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec][i].type:''}),mTexte({name:`value-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec][i].value:''}),mTexte({name:`options-${i}`,value:Formulaire[fspec][i]?Formulaire[fspec][i].options:''})])
 			
 		}
 		 
@@ -135,6 +135,78 @@ mFormulaire=function(ops){
 		'',].join('')
 		title=name
         resp.send(mStart({title:title, body:body},))
+}
+
+mCreatForm=function(ops){
+		var {resp, Formulaire,nomFormulaire} = ops
+		var FileForm={}
+		console.log("le nom formulaire :",nomFormulaire)
+		FileForm[nomFormulaire]
+		try{
+			FileForm[nomFormulaire]=require(`./data/${nomFormulaire}.json`)
+			}
+		catch(err){
+		console.log("il y a une erreur avec FileServe")
+		FileForm[nomFormulaire]=[]
+		}
+		
+		question=[]
+		
+		
+		console.log("Formulaire = ",Formulaire)
+		
+		i=-1
+		
+		console.log(question)
+		nbForm=FileForm[nomFormulaire].length+2
+		Form=[]
+		name=[]
+		Formulaire.forEach(function(valeur){
+			name.push(valeur.name)
+		})
+		while (i<nbForm){
+		i++
+		question=[]
+		Formulaire.forEach(function(valeur){
+			console.log("element ",i," = ",valeur)
+			question.push(mTexte({name:`${valeur.name}-${i}`,value:FileForm[nomFormulaire][i]?FileForm[nomFormulaire][i].name:''}))
+		})
+		Form.push(question)
+		}
+		
+		body=[	mTopAppBar({contenu:[{type:'texte', label:`${nomFormulaire}`, position:'start'}]}),
+				'<br>',
+				'<br>',
+				'<br>',
+				'<form method="POST" action="/membres">',
+				mTable({name:"Form 2 panel",infoTbl:Form,headerTbl:name}),
+				'<br>',
+			  '<button type="submit">Metre à jour</button>',
+			  '</form>',
+		'',].join('')
+		title="respect"
+        resp.send(mStart({title:title, body:body},))
+}
+
+
+formulairecreation=function (ops) {
+	var {app, Formulaire} = ops
+	keys= Object.keys(Formulaire)
+	console.log("les keys sont:",keys)
+	
+	keys.forEach(function(valeur){
+		
+		app.get(`/${valeur}`, function(req, resp) {
+			mCreatForm({Formulaire:Formulaire[valeur],nomFormulaire:valeur, resp:resp})
+		})
+		
+		
+	})
+	/*app.get('/bob', function(req, resp) {
+		
+		mTableauViForm2({name:"Panel 2",nbUser:Membre.length+1, resp:resp, Membre:Membre})
+	
+	})*/
 }
 
 module.exports = {mTableauViForm2, mTableauVisuel, mTableauViForm3, index, mFormulaire}

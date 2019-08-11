@@ -76,13 +76,13 @@ function initserveur() {
     
 	app.get('/formulaire/:fspec', function(req, resp) {
 		
-		mFormulaire({name:"Création Formulaire",nbFormulaire:2+1, resp:resp, Formulaire:Formulaire, fspec:req.params.fspec})
+		mFormulaire({name:"Création Formulaire",nbFormulaire:Formulaire[req.params.fspec]?Formulaire[req.params.fspec].length+2:3, resp:resp,req:req, Formulaire:Formulaire, fspec:req.params.fspec})
 	
 	})
 	
 	app.post('/formulaire/:fspec', function(req, resp) {
 		console.log(req.params.fspec)
-		formulairepost({name:"Création Formulaire",nbUser:2+1, resp:resp, Formulaire:Formulaire, fspec:req.params.fspec, resultat:Object.getOwnPropertyNames(req.body)})
+		formulairepost({name:"Création Formulaire",nbFormulaire:Formulaire[req.params.fspec]?Formulaire[req.params.fspec].length+2:3, resp:resp,req:req, Formulaire:Formulaire, fspec:req.params.fspec, resultat:Object.getOwnPropertyNames(req.body)})
 	})	
 	
 
