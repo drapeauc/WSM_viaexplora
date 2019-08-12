@@ -148,15 +148,15 @@ mCreatForm=function(ops){
 		console.log("il y a une erreur avec FileServe")
 		FileForm[nomFormulaire]=[]
 		}
-		
+		console.log("FILEFORM ========",FileForm[nomFormulaire])
 		question=[]
 		
 		
-		console.log("Formulaire = ",Formulaire)
+		//console.log("Formulaire = ",Formulaire)
 		
 		i=-1
 		
-		console.log(question)
+		//console.log(question)
 		nbForm=FileForm[nomFormulaire].length+2
 		Form=[]
 		name=[]
@@ -167,8 +167,10 @@ mCreatForm=function(ops){
 		i++
 		question=[]
 		Formulaire.forEach(function(valeur){
+			console.log("valeur = ",valeur)
 			console.log("element ",i," = ",valeur)
-			question.push(mTexte({name:`${valeur.name}-${i}`,value:FileForm[nomFormulaire][i]?FileForm[nomFormulaire][i].name:''}))
+			console.log("value ",i," = ",valeur.value)
+			question.push(mTexte({name:`${valeur.name}-${i}`,value:FileForm[nomFormulaire][i]?valeur.value:''}))
 		})
 		Form.push(question)
 		}
