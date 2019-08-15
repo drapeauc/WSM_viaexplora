@@ -186,16 +186,25 @@ creationformulaire=function(ops){
 		resultat.forEach(function(valeur){
 			var x = valeur.split('-')
 			var col = x[0], ligne = x[1]
+			console.log("x =",x[0],"ligne = ",x[1])
 			console.log("COL =",col)
+			
 			name.forEach(function(etat){
+			console.log("etat = ",etat)
+			console.log("col = ",col)
 			if (col===etat){
+				console.log("info[etat][ligne] = ",info[etat][ligne])
+				console.log("col value = ",req.body[valeur])
 				info[etat][ligne]=req.body[valeur]
+				console.log("info[etat][ligne] = ",info[etat][ligne])
 			}
+			console.log("info[etat] = ",info[etat])
 			})	
+			console.log("info = ", info)
 		})
-		console.log("INFOOOOOOOOOOOOOOOO",info)
-		generique= Object.keys(info)
 		
+		generique= Object.keys(info)
+		console.log("INFOOOOOOOOOOOOOOOO",info[generique[0]])
 		info[generique[0]].forEach(function(user,i){
 			objet={}
 			generique.forEach(function(value){
@@ -204,7 +213,7 @@ creationformulaire=function(ops){
 			returnFinal.push(objet)
 		})
 		
-			
+			FileForm[nomFormulaire]=returnFinal
 			fs.writeFile(`data/${nomFormulaire}.json`, JSON.stringify(returnFinal), (err) => {
 			  if (err) console.log(err);
 			  console.log("Successfully Written to File.");

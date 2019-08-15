@@ -32,7 +32,7 @@ mTableauVisuel=function(ops){
 //Membres
 mTableauViForm2=function(ops){
 		var {name='',Membre, nbUser=Membre.length+2, resp} = ops
-		console.log("membre = ",Membre)
+		//console.log("membre = ",Membre)
 		i=-1
 		user=[]
 		
@@ -103,18 +103,18 @@ resp.send(mStart({title:title, body:body},))
 
 mFormulaire=function(ops){
 		var {name='',Formulaire, nbFormulaire=2, resp,fspec} = ops
-		console.log("Formulaire = ",Formulaire)
-		console.log(fspec)
+		//console.log("Formulaire = ",Formulaire)
+		//console.log(fspec)
 		i=-1
 		user=[]
-		console.log(Formulaire)
+		//console.log(Formulaire)
 		if (Formulaire && !Formulaire[fspec]){
 			Formulaire[fspec]=[]
-			console.log(Formulaire)
+			//console.log(Formulaire)
 		}
 		
-		console.log("nbFormulaire =",nbFormulaire)
-		console.log("form=",Formulaire[fspec][0])
+		//console.log("nbFormulaire =",nbFormulaire)
+		//console.log("form=",Formulaire[fspec][0])
 
 		while (i<nbFormulaire){
 			i++
@@ -139,24 +139,25 @@ mFormulaire=function(ops){
 
 mCreatForm=function(ops){
 		var {resp, Formulaire,nomFormulaire,FileForm} = ops
-		console.log("le nom formulaire :",nomFormulaire)
+		//console.log("le nom formulaire :",nomFormulaire)
 		FileForm[nomFormulaire]
 		try{
 			FileForm[nomFormulaire]=require(`./data/${nomFormulaire}.json`)
 			}
 		catch(err){
-		console.log("il y a une erreur avec FileServe")
+		//console.log(err)
+		//console.log("il y a une erreur avec FileServe")
 		FileForm[nomFormulaire]=[]
 		}
-		console.log("FILEFORM ========",FileForm[nomFormulaire])
+		////console.log("FILEFORM ========",FileForm[nomFormulaire])
 		question=[]
+		//console.log("AAAAAAAAAAAAAAAAAAA 2=",FileForm[nomFormulaire]) 
 		
-		
-		//console.log("Formulaire = ",Formulaire)
+		////console.log("Formulaire = ",Formulaire)
 		
 		i=-1
 		
-		//console.log(question)
+		////console.log(question)
 		nbForm=FileForm[nomFormulaire].length+2
 		Form=[]
 		name=[]
@@ -167,10 +168,8 @@ mCreatForm=function(ops){
 		i++
 		question=[]
 		Formulaire.forEach(function(valeur){
-			console.log("valeur = ",valeur)
-			console.log("element ",i," = ",valeur)
-			console.log("value ",i," = ",valeur.value)
-			question.push(mTexte({name:`${valeur.name}-${i}`,value:FileForm[nomFormulaire][i]?valeur.value:''}))
+			//console.log("valeur = ",valeur)
+			question.push(mTexte({name:`${valeur.name}-${i}`,value:FileForm[nomFormulaire][i]?FileForm[nomFormulaire][i][valeur.name]:''}))
 		})
 		Form.push(question)
 		}
@@ -193,7 +192,7 @@ mCreatForm=function(ops){
 formulairecreation=function (ops) {
 	var {app, Formulaire} = ops
 	keys= Object.keys(Formulaire)
-	console.log("les keys sont:",keys)
+	//console.log("les keys sont:",keys)
 	var FileForm={}
 	
 	keys.forEach(function(valeur){
@@ -203,7 +202,7 @@ formulairecreation=function (ops) {
 		})
 		
 		app.post(`/${valeur}`, function(req, resp) {
-		console.log("AAAAAAAAAAAAAAAAAAA:",Formulaire[valeur].name)
+		////console.log("AAAAAAAAAAAAAAAAAAA:",Formulaire[valeur].name)
 		creationformulaire({FileForm, Formulaire:Formulaire[valeur],resultat:Object.getOwnPropertyNames(req.body),nomFormulaire:valeur, req:req, resp:resp,keys:Formulaire[valeur].name})
 
 	})	
