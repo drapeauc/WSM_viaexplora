@@ -313,8 +313,11 @@ mSelect=function(ops){
 	  <i class="mdc-select__dropdown-icon"></i>
 	  <select class="mdc-select__native-control" name=${name}>
 		<option disabled selected data-value=${value}>${value}</option>`)
-		options.forEach(function(options){Select.push(`<option data-value=${options}>
-		  ${options}
+		options.forEach(function(option){
+			log(option);
+			log("VALUE DE MSELECT =",value);
+			(option==value)?'':Select.push(`<option data-value=${option}>
+		  ${option}	
 		</option>`)})
 	Select.push(`		</select>
 	  <label class="mdc-floating-label">${label}</label>
@@ -353,8 +356,8 @@ mTopAppBar=function(ops){
 	  <div class="mdc-top-app-bar__row data-mdc-auto-init="MDCTopAppBar">
 		<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">`)
 		  contenu.forEach(function(element){
-			  console.log("element = ",element)
-			  console.log("element pos= ",element.position)
+			  //console.log("element = ",element)
+			  //console.log("element pos= ",element.position)
 			  if (element.position==='start'){
 				  if (element.type==='logo'){
 					TopApp.push(					  `<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">${element.label}</a>`)

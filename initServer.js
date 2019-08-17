@@ -23,7 +23,7 @@ try{
 	FileServe=require('./data/FileServe.json')
 	}
 catch(err){
-	console.log("il y a une erreur avec FileServe")
+	//console.log("il y a une erreur avec FileServe")
 	FileServe={}
 }
 var Login
@@ -39,7 +39,7 @@ try{
 	Membre=require('./data/Membre.json')
 }
 catch(err){
-	console.log("il y a une erreur avec Membre")
+	//console.log("il y a une erreur avec Membre")
 	Membre=[]
 }
 
@@ -48,7 +48,7 @@ try{
 	Formulaire=require('./data/Formulaire.json')
 }
 catch(err){
-	console.log("il y a une erreur avec Formulaire")
+	//console.log("il y a une erreur avec Formulaire")
 	Formulaire={}
 }
 
@@ -102,7 +102,7 @@ function initserveur() {
 		
 	
 		
-		console.log(FileServe)
+		//console.log(FileServe)
 		
 		mTableauViForm3({name:`Form 3 ${abv}`, resp:resp, FileServe:FileServe, abv:abv})
 
@@ -116,7 +116,7 @@ function initserveur() {
 	})
 	
 	app.post('/formulaire/:fspec', function(req, resp) {
-		console.log(req.params.fspec)
+		//console.log(req.params.fspec)
 		formulairepost({name:"Création Formulaire",nbFormulaire:Formulaire[req.params.fspec]?Formulaire[req.params.fspec].length+2:3, resp:resp,req:req, Formulaire:Formulaire, fspec:req.params.fspec, resultat:Object.getOwnPropertyNames(req.body)})
 	})	
 	

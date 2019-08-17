@@ -22,12 +22,12 @@ adminpost=function(ops){
 				break;
 				case "ROOT":
 					ROOT[ligne]= !!req.body[valeur]
-					console.log(ROOT[ligne])
+					//console.log(ROOT[ligne])
 				break;
 			}
 			
 		})
-		console.log(`username= ${username}`,username)
+		//console.log(`username= ${username}`,username)
 		
 		username.forEach(function(user,i){
 			if(user){
@@ -40,7 +40,7 @@ adminpost=function(ops){
 			})
 			fs.writeFile("data/login.json", JSON.stringify(Login), (err) => {
 			  if (err) console.log(err);
-			  console.log("Successfully Written to File.");
+			  //console.log("Successfully Written to File.");
 			});
 			mTableauVisuel({name:"Admin panel",nbUser:Login.length+1, resp:resp,Login:Login})
 	}
@@ -55,7 +55,7 @@ var type=[]
 		resultat.forEach(function(valeur){
 			var x = valeur.split('-')
 			var col = x[0], ligne = x[1]
-			//console.log("valeur= ",valeur)
+			////console.log("valeur= ",valeur)
 			switch (col){
 				case "user":
 					acro[ligne]=req.body[valeur]
@@ -65,18 +65,18 @@ var type=[]
 				break;
 				case "type":
 					type[ligne]=req.body[valeur]
-				//	console.log(type[ligne])
+				//	//console.log(type[ligne])
 				break;
 			}
-	//	console.log("type = "+type)
-	//	console.log("acro = "+acro)
+	//	//console.log("type = "+type)
+	//	//console.log("acro = "+acro)
 		})
-		console.log(`acro= ${acro}`,acro)
+		//console.log(`acro= ${acro}`,acro)
 		
 		acro.forEach(function(user,i){
 			if(user){
-		//		console.log("GELO"+type[i])
-		//		console.log(user)
+		//		//console.log("GELO"+type[i])
+		//		//console.log(user)
 				Membre.push({
 					acro:user,
 					titre:titre[i],
@@ -87,7 +87,7 @@ var type=[]
 			
 			fs.writeFile("data/Membre.json", JSON.stringify(Membre), (err) => {
 			  if (err) console.log(err);
-			  console.log("Successfully Written to File.");
+			  //console.log("Successfully Written to File.");
 			});
 			mTableauViForm2({name:"Panel 2",nbUser:Membre.length+1, resp:resp, Membre:Membre})
 }
@@ -125,7 +125,7 @@ var type=[]
 		resultat.forEach(function(valeur){
 			var x = valeur.split('-')
 			var col = x[0], ligne = x[1]
-			//console.log("valeur= ",valeur)
+			////console.log("valeur= ",valeur)
 			switch (col){
 				case "name":
 					name[ligne]=req.body[valeur]
@@ -135,20 +135,20 @@ var type=[]
 				break;
 				case "value":
 					value[ligne]=req.body[valeur]
-				//	console.log(type[ligne])
+				//	//console.log(type[ligne])
 				case "options":
 					options[ligne]=req.body[valeur]
-				//	console.log(type[ligne])
+				//	//console.log(type[ligne])
 				break;
 			}
-	//	console.log("type = "+type)
-	//	console.log("acro = "+acro)
+	//	//console.log("type = "+type)
+	//	//console.log("acro = "+acro)
 		})
 		
 		name.forEach(function(nom,i){
 			if(nom){
-		//		console.log("GELO"+type[i])
-		//		console.log(user)
+		//		//console.log("GELO"+type[i])
+		//		//console.log(user)
 				Formulaire[fspec].push({
 					name:nom,
 					type:type[i],
@@ -180,31 +180,31 @@ creationformulaire=function(ops){
 		
 		name.forEach(function(etat){
 			info[etat]=[]
-			console.log("KEYYYYY =",etat)
+			//console.log("KEYYYYY =",etat)
 		})
 		
 		resultat.forEach(function(valeur){
 			var x = valeur.split('-')
 			var col = x[0], ligne = x[1]
-			console.log("x =",x[0],"ligne = ",x[1])
-			console.log("COL =",col)
+			//console.log("x =",x[0],"ligne = ",x[1])
+			//console.log("COL =",col)
 			
 			name.forEach(function(etat){
-			console.log("etat = ",etat)
-			console.log("col = ",col)
+			//console.log("etat = ",etat)
+			//console.log("col = ",col)
 			if (col===etat){
-				console.log("info[etat][ligne] = ",info[etat][ligne])
-				console.log("col value = ",req.body[valeur])
+				//console.log("info[etat][ligne] = ",info[etat][ligne])
+				//console.log("col value = ",req.body[valeur])
 				info[etat][ligne]=req.body[valeur]
-				console.log("info[etat][ligne] = ",info[etat][ligne])
+				//console.log("info[etat][ligne] = ",info[etat][ligne])
 			}
-			console.log("info[etat] = ",info[etat])
+			//console.log("info[etat] = ",info[etat])
 			})	
-			console.log("info = ", info)
+			//console.log("info = ", info)
 		})
 		
 		generique= Object.keys(info)
-		console.log("INFOOOOOOOOOOOOOOOO",info[generique[0]])
+		//console.log("INFOOOOOOOOOOOOOOOO",info[generique[0]])
 		info[generique[0]].forEach(function(user,i){
 			objet={}
 			generique.forEach(function(value){
