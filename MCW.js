@@ -312,7 +312,7 @@ mSelect=function(ops){
 	Select.push(`	<div class="mdc-select" data-mdc-auto-init="MDCSelect">
 	  <i class="mdc-select__dropdown-icon"></i>
 	  <select class="mdc-select__native-control" name=${name}>
-		<option disabled selected data-value=${value}>${value}</option>`)
+		<option selected data-value=${value}>${value}</option>`)
 		options.forEach(function(option){
 			log(option);
 			log("VALUE DE MSELECT =",value);

@@ -2,7 +2,7 @@
 fs = require('fs');
 log = console.log.bind(console);
 
-
+var FileForm={}
 
 const express = require('express')
 var http = require('http');
@@ -120,6 +120,27 @@ function initserveur() {
 		formulairepost({name:"Création Formulaire",nbFormulaire:Formulaire[req.params.fspec]?Formulaire[req.params.fspec].length+2:3, resp:resp,req:req, Formulaire:Formulaire, fspec:req.params.fspec, resultat:Object.getOwnPropertyNames(req.body)})
 	})	
 	
+	app.get('/view/:formulaire', function(req, resp, next) {
+		formulaire= req.params.formulaire 
+		if (!FileForm[formulaire]){
+		try{
+			FileForm[formulaire]=require(`./data/${formulaire}.json`)
+			}
+		catch(err){
+		////console.log(err)
+		////console.log("il y a une erreur avec FileServe")
+		FileForm[formulaire]=[]
+		}}
+		if (!Formulaire[formulaire]) return next()	
+			
+		mCreatForm({Formulaire:Formulaire[formulaire],nomFormulaire:formulaire, resp:resp, FileForm})
+	})
+	
+	app.post('/view/:formulaire', function(req,resp,next){
+		valeur= req.params.formulaire 
+		creationformulaire({FileForm, Formulaire:Formulaire[valeur],resultat:Object.getOwnPropertyNames(req.body),nomFormulaire:valeur, req:req, resp:resp,keys:Formulaire[valeur].name})
+
+	})
 	formulairecreation({app:app,Formulaire:Formulaire})
 	
 		app.post('/infoMembre/:abv', function(req, resp) {

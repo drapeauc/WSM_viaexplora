@@ -42,6 +42,7 @@ adminpost=function(ops){
 			  if (err) console.log(err);
 			  //console.log("Successfully Written to File.");
 			});
+			
 			mTableauVisuel({name:"Admin panel",nbUser:Login.length+1, resp:resp,Login:Login})
 	}
 

@@ -140,7 +140,7 @@ mFormulaire=function(ops){
 mCreatForm=function(ops){
 		var {resp, Formulaire,nomFormulaire,FileForm} = ops
 		////console.log("le nom formulaire :",nomFormulaire)
-		FileForm[nomFormulaire]
+		if (!FileForm[nomFormulaire]){
 		try{
 			FileForm[nomFormulaire]=require(`./data/${nomFormulaire}.json`)
 			}
@@ -148,7 +148,7 @@ mCreatForm=function(ops){
 		////console.log(err)
 		////console.log("il y a une erreur avec FileServe")
 		FileForm[nomFormulaire]=[]
-		}
+		}}
 		//////console.log("FILEFORM ========",FileForm[nomFormulaire])
 		question=[]
 		////console.log("AAAAAAAAAAAAAAAAAAA 2=",FileForm[nomFormulaire]) 
@@ -181,7 +181,8 @@ mCreatForm=function(ops){
 				question.push(mSelect({name:`${valeur.name}-${i}`,options:choixOptions, value:FileForm[nomFormulaire][i]?FileForm[nomFormulaire][i][valeur.name]:''}))
 				break;
 				case "checkbox":
-				question.push(mCheckbox({name:`${valeur.name}-${i}`,checked:valeur.value?true:''}))
+				console.log()
+				question.push(mCheckbox({name:`${valeur.name}-${i}`,checked:FileForm[nomFormulaire][i]?FileForm[nomFormulaire][i][valeur.name]:''}))
 				break;
 			}
 			//)
@@ -193,7 +194,7 @@ mCreatForm=function(ops){
 				'<br>',
 				'<br>',
 				'<br>',
-				`<form method="POST" action="/${nomFormulaire}">`,
+				`<form method="POST" action="/view/${nomFormulaire}">`,
 				mTable({name:"Form 2 panel",infoTbl:Form,headerTbl:name}),
 				'<br>',
 			  '<button type="submit">Metre à jour</button>',
