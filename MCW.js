@@ -66,7 +66,7 @@ mIcon= function(ops){
 mButton= function(ops){
 
 
-    var { liens="#", label='', raised=true, outlined, dense=true, icon, trailingIcon, disabled, href,  className='' }= ops
+    var { liens="#", label='', raised=true, outlined, dense=true, icon, trailingIcon, disabled, href,  className='',option}= ops
 
 
     return [

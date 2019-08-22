@@ -182,8 +182,11 @@ mCreatForm=function(ops){
 				question.push(mSelect({name:`${valeur.name}-${i}`,options:choixOptions, value:FileForm[nomFormulaire][i]?FileForm[nomFormulaire][i][valeur.name]:''}))
 				break;
 				case "checkbox":
-				console.log()
 				question.push(mCheckbox({name:`${valeur.name}-${i}`,checked:FileForm[nomFormulaire][i]?FileForm[nomFormulaire][i][valeur.name]:''}))
+				break
+				case "bouton":
+				var choixOptions=valeur.options.split(",")
+				question.push(mButton({liens:`${choixOptions[0]}${FileForm[nomFormulaire][i]?FileForm[nomFormulaire][i][valeur[choixOptions[1]]:''}}`, label:""})
 				break;
 			}
 			//)
