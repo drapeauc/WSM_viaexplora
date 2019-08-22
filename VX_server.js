@@ -217,7 +217,10 @@ creationformulaire=function(ops){
 		info[generique[0]].forEach(function(user,i){
 			objet={}
 			generique.forEach(function(value){
+				if (info[0][i])
+				{
 				objet[value]=info[value][i]
+				}
 			})
 			returnFinal.push(objet)
 		})

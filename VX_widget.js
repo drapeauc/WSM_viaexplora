@@ -208,7 +208,7 @@ mCreatForm=function(ops){
 			  '</form>',
 		'',].join('')
 		title="respect"
-		Formulaire.push(valeurPop)
+		FileForm[nomFormulaire].push(valeurPop)
         resp.send(mStart({title:title, body:body},))
 }
 
