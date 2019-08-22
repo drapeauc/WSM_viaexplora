@@ -127,9 +127,13 @@ mFormulaire=function(ops){
 				'<br>',
 				'<br>',
 				'<br>',
+				'<br>',
+				'<br>',
 				`<form method="POST" action="/formulaire/${fspec}">`,
 				mTable({name:"Form 2 panel",infoTbl:user,headerTbl:["name","type","value","options"]}),
 				'<br>',
+				'Combien de ligne voulez vous: ',
+				`${mTexte({name:"ligne",value:''})}`,
 			  '<button type="submit">Metre à jour</button>',
 			  '</form>',
 		'',].join('')
@@ -149,16 +153,19 @@ mCreatForm=function(ops){
 		////console.log("il y a une erreur avec FileServe")
 		FileForm[nomFormulaire]=[]
 		}}
-		//////console.log("FILEFORM ========",FileForm[nomFormulaire])
+
 		question=[]
-		////console.log("AAAAAAAAAAAAAAAAAAA 2=",FileForm[nomFormulaire]) 
-		
-		//////console.log("Formulaire = ",Formulaire)
-		
+		var valeurPop
+
 		i=-1
+		console.log("length =",FileForm[nomFormulaire].length)
+
+			valeurPop=Formulaire.pop()
+			console.log(valeurPop)
 		
 		//////console.log(question)
-		nbForm=FileForm[nomFormulaire].length+2
+		nbForm=FileForm[nomFormulaire].length+valeurPop
+		console.log("nbForm = ",nbForm)
 		Form=[]
 		name=[]
 		Formulaire.forEach(function(valeur){
@@ -201,6 +208,7 @@ mCreatForm=function(ops){
 			  '</form>',
 		'',].join('')
 		title="respect"
+		Formulaire.push(valeurPop)
         resp.send(mStart({title:title, body:body},))
 }
 

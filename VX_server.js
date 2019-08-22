@@ -113,17 +113,18 @@ infopost=function(ops){
 
 formulairepost=function(ops){
 
-var {resultat, req, resp,Formulaire,fspec} = ops
-var type=[]
-		var name=[]
-		var type=[]	
-		var value=[]
-		var options=[]
-		
+	var {resultat, req, resp,Formulaire,fspec} = ops
+	var type=[]
+	var name=[]
+	var type=[]	
+	var value=[]
+	var options=[]
+	var nbLigne
 		Formulaire[fspec]=[]
 		//name type valueoptions
-        
+			console.log(resultat)
 		resultat.forEach(function(valeur){
+			console.log(valeur)
 			var x = valeur.split('-')
 			var col = x[0], ligne = x[1]
 			////console.log("valeur= ",valeur)
@@ -140,12 +141,16 @@ var type=[]
 				case "options":
 					options[ligne]=req.body[valeur]
 				//	//console.log(type[ligne])
+				break
+				case "ligne":
+					console.log("ligneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee= ",req.body[valeur])
+					nbLigne=req.body[valeur]
 				break;
 			}
 	//	//console.log("type = "+type)
 	//	//console.log("acro = "+acro)
 		})
-		
+		console.log(nbLigne)
 		name.forEach(function(nom,i){
 			if(nom){
 		//		//console.log("GELO"+type[i])
@@ -159,6 +164,9 @@ var type=[]
 					})
 			}
 			})
+			console.log(nbLigne)
+		
+			Formulaire[fspec].push(parseInt(nbLigne))
 			
 			fs.writeFile("data/Formulaire.json", JSON.stringify(Formulaire), (err) => {
 			  if (err) console.log(err);

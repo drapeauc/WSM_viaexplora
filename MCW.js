@@ -314,8 +314,8 @@ mSelect=function(ops){
 	  <select class="mdc-select__native-control" name=${name}>
 		<option selected data-value=${value}>${value}</option>`)
 		options.forEach(function(option){
-			log(option);
-			log("VALUE DE MSELECT =",value);
+			//log(option);
+			//log("VALUE DE MSELECT =",value);
 			(option==value)?'':Select.push(`<option data-value=${option}>
 		  ${option}	
 		</option>`)})

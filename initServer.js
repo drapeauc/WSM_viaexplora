@@ -26,22 +26,6 @@ catch(err){
 	//console.log("il y a une erreur avec FileServe")
 	FileServe={}
 }
-var Login
-try{
-	Login=require('./data/login.json')
-}
-catch(err){
-	Login=[]
-}
-
-var Membre
-try{
-	Membre=require('./data/Membre.json')
-}
-catch(err){
-	//console.log("il y a une erreur avec Membre")
-	Membre=[]
-}
 
 var Formulaire
 try{
@@ -71,26 +55,7 @@ function initserveur() {
 	*/
 	/* req deffinition*/
 	
-    app.get('/adminpanel', function(req, resp) {
-		mTableauVisuel({name:"Admin panel",nbUser:Login.length+1, resp:resp, Login:Login})
-    })
-	
-	app.post('/adminpanel', function(req, resp) {
-			
-
-		adminpost({resultat:Object.getOwnPropertyNames(req.body),req:req, resp:resp})
-	//tetetete	})
-	})	
-	app.get('/membres', function(req, resp) {
-		
-		mTableauViForm2({name:"Panel 2",nbUser:Membre.length+1, resp:resp, Membre:Membre})
-	
-	})
-	
-	app.post('/membres', function(req, resp) {
-			
-		membrespost({req:req,resp:resp,resultat:Object.getOwnPropertyNames(req.body)})
-	})	
+ 
 	
 	app.get('/', function (req,resp){
 		index({resp:resp})
@@ -98,10 +63,6 @@ function initserveur() {
 	
 	    app.get('/infoMembre/:abv', function(req, resp) {
 		abv = req.params.abv
-		
-		
-	
-		
 		//console.log(FileServe)
 		
 		mTableauViForm3({name:`Form 3 ${abv}`, resp:resp, FileServe:FileServe, abv:abv})
