@@ -166,7 +166,7 @@ formulairepost=function(ops){
 			})
 			//console.log(nbLigne)
 		
-			//Formulaire[fspec].push(parseInt(nbLigne))
+			Formulaire[fspec].push(parseInt(nbLigne))
 			
 			fs.writeFile("data/Formulaire.json", JSON.stringify(Formulaire), (err) => {
 			  if (err) console.log(err);
@@ -222,20 +222,31 @@ creationformulaire=function(ops){
 			
 			generique.forEach(function(value){
 				console.log("info[generique[0]][i] = ",info[generique[0]][i],!!info[generique[0]][i])
-				if (info[generique[0]][i])
+				
+				if (!!info[generique[0]][i])
 				{
 				objet[value]=info[value][i]
 				}
 			})
+			function isEmpty(obj) {
+				for(var key in obj) {
+					if(obj.hasOwnProperty(key))
+						return false;
+				}
+				return true;
+			}
+			if (!isEmpty(objet))
+			{
 			returnFinal.push(objet)
+			}
 		})
-			
-			FileForm[nomFormulaire]=returnFinal
-			fs.writeFile(`data/${nomFormulaire}.json`, JSON.stringify(returnFinal), (err) => {
-			  if (err) console.log(err);
-			  console.log("Successfully Written to File.");
-			});
-			mCreatForm({Formulaire:Formulaire,nomFormulaire:nomFormulaire, resp:resp, FileForm:FileForm})
+			//check le premier keys s
+		FileForm[nomFormulaire]=returnFinal
+		fs.writeFile(`data/${nomFormulaire}.json`, JSON.stringify(returnFinal), (err) => {
+		 if (err) console.log(err);
+			console.log("Successfully Written to File.");
+			  });
+		mCreatForm({Formulaire:Formulaire,nomFormulaire:nomFormulaire, resp:resp, FileForm:FileForm})
 	}
 	
 module.exports = {adminpost,membrespost,formulairepost}

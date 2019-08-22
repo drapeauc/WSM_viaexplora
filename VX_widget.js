@@ -149,20 +149,17 @@ mCreatForm=function(ops){
 			FileForm[nomFormulaire]=require(`./data/${nomFormulaire}.json`)
 			}
 		catch(err){
-		////console.log(err)
-		////console.log("il y a une erreur avec FileServe")
+
 		FileForm[nomFormulaire]=[]
 		}}
-		//////console.log("FILEFORM ========",FileForm[nomFormulaire])
+		lignePop=Formulaire.pop()
 		question=[]
-		////console.log("AAAAAAAAAAAAAAAAAAA 2=",FileForm[nomFormulaire]) 
-		
-		//////console.log("Formulaire = ",Formulaire)
+
 		
 		i=-1
 		
 		//////console.log(question)
-		nbForm=FileForm[nomFormulaire].length+2
+		nbForm=FileForm[nomFormulaire].length+lignePop-1
 		Form=[]
 		name=[]
 		Formulaire.forEach(function(valeur){
@@ -193,7 +190,7 @@ mCreatForm=function(ops){
 		})
 		Form.push(question)
 		}
-		
+		Formulaire.push(lignePop)
 		body=[	mTopAppBar({contenu:[{type:'texte', label:`${nomFormulaire}`, position:'start'}]}),
 				'<br>',
 				'<br>',
