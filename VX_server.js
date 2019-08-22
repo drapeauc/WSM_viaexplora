@@ -164,9 +164,9 @@ formulairepost=function(ops){
 					})
 			}
 			})
-			console.log(nbLigne)
+			//console.log(nbLigne)
 		
-			Formulaire[fspec].push(parseInt(nbLigne))
+			//Formulaire[fspec].push(parseInt(nbLigne))
 			
 			fs.writeFile("data/Formulaire.json", JSON.stringify(Formulaire), (err) => {
 			  if (err) console.log(err);
@@ -229,7 +229,7 @@ creationformulaire=function(ops){
 			})
 			returnFinal.push(objet)
 		})
-		
+			
 			FileForm[nomFormulaire]=returnFinal
 			fs.writeFile(`data/${nomFormulaire}.json`, JSON.stringify(returnFinal), (err) => {
 			  if (err) console.log(err);

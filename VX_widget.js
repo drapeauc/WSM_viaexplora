@@ -153,19 +153,16 @@ mCreatForm=function(ops){
 		////console.log("il y a une erreur avec FileServe")
 		FileForm[nomFormulaire]=[]
 		}}
-
+		//////console.log("FILEFORM ========",FileForm[nomFormulaire])
 		question=[]
-		var valeurPop
-
+		////console.log("AAAAAAAAAAAAAAAAAAA 2=",FileForm[nomFormulaire]) 
+		
+		//////console.log("Formulaire = ",Formulaire)
+		
 		i=-1
-		console.log("length =",FileForm[nomFormulaire].length)
-
-			valeurPop=Formulaire.pop()
-			console.log(valeurPop)
 		
 		//////console.log(question)
-		nbForm=FileForm[nomFormulaire].length+valeurPop
-		console.log("nbForm = ",nbForm)
+		nbForm=FileForm[nomFormulaire].length+2
 		Form=[]
 		name=[]
 		Formulaire.forEach(function(valeur){
@@ -208,7 +205,6 @@ mCreatForm=function(ops){
 			  '</form>',
 		'',].join('')
 		title="respect"
-		FileForm[nomFormulaire].push(valeurPop)
         resp.send(mStart({title:title, body:body},))
 }
 
