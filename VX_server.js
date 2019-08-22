@@ -216,8 +216,13 @@ creationformulaire=function(ops){
 		//console.log("INFOOOOOOOOOOOOOOOO",info[generique[0]])
 		info[generique[0]].forEach(function(user,i){
 			objet={}
+			keys=generique.keys()
+			console.log(keys)
+			
+			
 			generique.forEach(function(value){
-				if (info[0][i])
+				console.log("info[generique[0]][i] = ",info[generique[0]][i],!!info[generique[0]][i])
+				if (info[generique[0]][i])
 				{
 				objet[value]=info[value][i]
 				}
